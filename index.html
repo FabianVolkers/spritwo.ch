@@ -13,21 +13,40 @@
             align-items: center;
             height: 100vh;
             font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
             background-color: #107C3E;
+            margin: 0;
+            padding: 0;
         }
         .countdown-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
         }
+        .images {
+            display: flex;
+            justify-content: center;
+        }
         .countdown {
-            font-size: 10rem;
+            font-size: 4rem;
             color: #FFFFFF;
-            margin: 0 5rem;
+            margin: 1rem 0;
         }
         .image {
             max-height: 200px;
             max-width: 200px;
+            margin: 0 1rem;
+        }
+        @media (min-width: 768px) {
+            .countdown-container {
+                flex-direction: row;
+            }
+            .images {
+                display: block;
+            }
+            .countdown {
+                margin: 2rem 1rem;
+                font-size: 10rem;
+            }
         }
     </style>
 </head>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            background-color: #107C3E;
+        }
+        .countdown-container {
+            display: flex;
+            align-items: center;
+        }
+        .countdown {
+            font-size: 10rem;
+            color: #FFFFFF;
+            margin: 0 5rem;
+        }
+        .image {
+            max-height: 200px;
+            max-width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <img class="image" src="./SPRITWOCH_LOGO_v2.png" alt="Left image">
+        <div class="countdown" id="countdown">00:00:00</div>
+        <img class="image" src="./SPRITWOCH_LOGO_v2.png" alt="Right image">
+    </div>
+
+    <script>
+        const countdownElement = document.getElementById('countdown');
+
+        function updateCountdown() {
+            const currentTime = new Date();
+            const targetTime = new Date();
+            targetTime.setHours(17, 1, 0, 0);
+
+            // Set timezone offset to Berlin time (+2 hours from UTC)
+            const berlinOffset = 2 * 60;
+            const currentOffset = -currentTime.getTimezoneOffset();
+            targetTime.setMinutes(targetTime.getMinutes() + berlinOffset - currentOffset);
+
+            const remainingTime = targetTime - currentTime;
+            if (remainingTime > 0) {
+                const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+                countdownElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                countdownElement.textContent = "00:00:00";
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>

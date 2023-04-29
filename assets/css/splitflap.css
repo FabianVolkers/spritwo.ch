@@ -25,6 +25,14 @@
     height: 120px;
     background: #111111;
   }
+  @media screen and (max-width: 768px) {
+    .wrap .split-flap {
+      width: 30px;
+      height: 40px;
+    }
+  }
+    
+  }
   .wrap .split-flap .inner-shadow {
     position: absolute;
     top: 0;
@@ -63,6 +71,13 @@
     font-size: 100px;
     text-align: center;
     color: white;
+  }
+  @media screen and (max-width: 768px) {
+    .wrap .split-flap .card .letter {
+      font-size: 33px;
+    }
+  }
+    
   }
   .wrap .split-flap .card.top {
     z-index: 1;

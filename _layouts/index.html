@@ -15,49 +15,7 @@
     <meta name="twitter:title" content="{{ page.title | default: "Spritwoch Countdown" }}">
     <meta name="twitter:description" content="{{ page.description | default: "Spritwoch is happening on " }}{{ page.target_date | date: "%Y-%m-%dT%H:%M:%S" | default: "2023-04-29T17:01:00" }}">
     <meta name="twitter:image" content="{{ page.image | default: "https://spritwo.ch/preview-image.jpg" }}">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #107C3E;
-            margin: 0;
-            padding: 0;
-        }
-        .countdown-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .images {
-            display: flex;
-            justify-content: center;
-        }
-        .countdown {
-            font-size: 4rem;
-            color: #FFFFFF;
-            margin: 1rem 0;
-        }
-        .image {
-            max-height: 200px;
-            max-width: 200px;
-            margin: 0 1rem;
-        }
-        @media (min-width: 768px) {
-            .countdown-container {
-                flex-direction: row;
-            }
-            .images {
-                display: block;
-            }
-            .countdown {
-                margin: 0 1rem;
-                font-size: 12rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ "/assets/css/styles.css" | relative_url }}">
 </head>
 <body>
     <div class="countdown-container">

@@ -61,50 +61,79 @@ function SplitFlap(opts) {
   };
 }
 
-let splitFlaps = [];
+document.addEventListener("DOMContentLoaded", function () {
+   const NUMBER_OF_FLAPS = 10;
+    const startingString = "SPRITWOCH ";
+    const wrapElm = document.getElementById("wrap");
 
-for (let i = 0; i < 8; ++i) {
-  splitFlaps.push(
-    new SplitFlap({
-      id: "flap-" + i,
-    })
-  );
-}
-const targetDate = new Date(targetDateString);
-setInterval(() => {
-  let now = new Date();
-//   let hours = ("0" + now.getHours()).substr(-2);
-//   let minutes = ("0" + now.getMinutes()).substr(-2);
-//   let seconds = ("0" + now.getSeconds()).substr(-2);
+    let splitFlaps = [];
 
-//   let dateStr = hours + ":" + minutes + ":" + seconds;
-const remainingTime = targetDate - now;
+    for (let i = 0; i < NUMBER_OF_FLAPS; ++i) {
+        newFlap = document.createElement("div");
+        newFlap.classList.add("split-flap");
+        newFlap.id = "flap-" + i;
+        newFlap.innerHTML = `
+        <div class="card front">
+            <div class="letter">${startingString[i]}</div>
+        </div>
+        <div class="card back">
+            <div class="letter">${startingString[i]}</div>
+        </div>
+        <div class="card top">
+            <div class="letter">${startingString[i]}</div>
+        </div>
+        <div class="card bottom">
+            <div class="letter">${startingString[i]}</div>
+        </div>
+        `;
+        wrapElm.appendChild(newFlap);
 
-    if (remainingTime < 0) {
-      //   clearInterval(intervalId);
-      //   countdown.textContent = "00 : 00 : 00";
-      let dateStr = "ABFAHRT!";
-      for (let i = 0; i < dateStr.length; ++i) {
-        splitFlaps[i].to(dateStr[i]);
-      }
-      return;
+      splitFlaps.push(
+        new SplitFlap({
+          id: "flap-" + i,
+        })
+      );
     }
+    const targetDate = new Date(targetDateString);
+    setInterval(() => {
+      let now = new Date();
+    //   let hours = ("0" + now.getHours()).substr(-2);
+    //   let minutes = ("0" + now.getMinutes()).substr(-2);
+    //   let seconds = ("0" + now.getSeconds()).substr(-2);
+    
+    //   let dateStr = hours + ":" + minutes + ":" + seconds;
+    splitFlaps[0].to(" ");
+    splitFlaps[9].to(" ");
+    const remainingTime = targetDate - now;
+    
+        if (remainingTime < 0) {
+          //   clearInterval(intervalId);
+          //   countdown.textContent = "00 : 00 : 00";
+          let dateStr = "ABFAHRT!";
+          for (let i = 0; i < dateStr.length; ++i) {
+            splitFlaps[i+1].to(dateStr[i]);
+          }
+          return;
+        }
+    
+        const hours = Math.floor(remainingTime / (1000 * 60 * 60));
+        const minutes = Math.floor(
+          (remainingTime % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+    
+        const hoursStr = String(hours).padStart(2, "0");
+        const minutesStr = String(minutes).padStart(2, "0");
+        const secondsStr = String(seconds).padStart(2, "0");
+        //   let hours = ('0' + now.getHours()).substr(-2);
+        //   let minutes = ('0' + now.getMinutes()).substr(-2);
+        //   let seconds = ('0' + now.getSeconds()).substr(-2);
+    
+        let dateStr = hoursStr + ":" + minutesStr + ":" + secondsStr;
+      for (let i = 0; i < dateStr.length; ++i) {
+        splitFlaps[i+1].to(dateStr[i]);
+      }
+    }, 1000);
+});
 
-    const hours = Math.floor(remainingTime / (1000 * 60 * 60));
-    const minutes = Math.floor(
-      (remainingTime % (1000 * 60 * 60)) / (1000 * 60)
-    );
-    const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
-    const hoursStr = String(hours).padStart(2, "0");
-    const minutesStr = String(minutes).padStart(2, "0");
-    const secondsStr = String(seconds).padStart(2, "0");
-    //   let hours = ('0' + now.getHours()).substr(-2);
-    //   let minutes = ('0' + now.getMinutes()).substr(-2);
-    //   let seconds = ('0' + now.getSeconds()).substr(-2);
-
-    let dateStr = hoursStr + ":" + minutesStr + ":" + secondsStr;
-  for (let i = 0; i < dateStr.length; ++i) {
-    splitFlaps[i].to(dateStr[i]);
-  }
-}, 1000);

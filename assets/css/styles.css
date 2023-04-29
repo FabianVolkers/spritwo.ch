@@ -6,6 +6,9 @@
   src: url(https://fonts.gstatic.com/s/bebasneue/v9/JTUSjIg69CK48gW7PXooxW4.ttf)
     format("truetype");
 }
+
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap");
+
 html {
   height: 100%;
   overflow: hidden;
@@ -109,6 +112,7 @@ body {
 }
 .sign-container {
   display: grid;
+  margin-top: 5vh;
 }
 
 .sign {

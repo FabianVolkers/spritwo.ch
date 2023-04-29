@@ -1,9 +1,9 @@
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     height: 100vh;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Orbitron', sans-serif;
     background-color: #107C3E;
     margin: 0;
     padding: 0;
@@ -12,30 +12,65 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 10vh;
 }
 .images {
     display: flex;
     justify-content: center;
 }
-.countdown {
-    font-size: 4rem;
+/* .countdown {
+    font-size: 2rem;
     color: #FFFFFF;
     margin: 1rem 0;
-}
-.image {
-    max-height: 200px;
-    max-width: 200px;
+    background-color: #000000;
+    border-radius: 5px;
+    padding: 10px;
+    display: inline-flex;
+} */
+/* .time-part {
+    display: flex;
+    flex-direction: column;
     margin: 0 1rem;
 }
-@media (min-width: 768px) {
-    .countdown-container {
-        flex-direction: row;
-    }
-    .images {
-        display: block;
-    }
-    .countdown {
-        margin: 0 1rem;
-        font-size: 12rem;
-    }
+.flip {
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    height: 1.5em;
+} */
+/* .flip {
+    animation: flip 0.5s linear infinite;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    height: 1.5em;
 }
+.flip div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
+} */
+/* .flip div:last-child {
+    clip-path: polygon(0% 50%, 100% 50%, 100% 100%, 0% 100%);
+    transform-origin: top;
+    animation: flip 0.5s linear infinite;
+    animation-delay: 0.25s;
+} */
+/* .animate {
+    animation: flip 0.5s linear;
+}
+@keyframes flip {
+    0% {
+        transform: perspective(300px) rotateX(0deg);
+    }
+    50% {
+        transform: perspective(300px) rotateX(-180deg);
+    }
+    100% {
+        transform: perspective(300px) rotateX(0deg);
+    }
+} */

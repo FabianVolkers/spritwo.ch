@@ -15,40 +15,175 @@
     <meta name="twitter:title" content="{{ page.title | default: "Spritwoch Countdown" }}">
     <meta name="twitter:description" content="{{ page.description | default: "Spritwoch is happening on " }}{{ page.target_date | date: "%Y-%m-%dT%H:%M:%S" | default: "2023-04-29T17:01:00" }}">
     <meta name="twitter:image" content="{{ page.image | default: "https://spritwo.ch/preview-image.jpg" }}">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ "/assets/css/styles.css" | relative_url }}">
+    <link rel="stylesheet" href="{{ "/assets/css/splitflap.css" | relative_url }}">
+    <link rel="stylesheet" href="{{ "/assets/css/pool.css" | relative_url }}">
 </head>
 <body>
-    <div class="countdown-container">
-        <div class="images">
+   
+<div class="countdown-container">
+        <!-- <div class="images">
             <img class="image" src="{{ page.left_image | default: "SPRITWOCH_LOGO_v2.png" }}" alt="Left image">
+        </div> -->
+        <!-- https://www.youtube.com/watch?v=8ARBlCdq94k -->
+    <div class="wrap">
+        <div class="split-flap" id="flap-0">
+        <div class="card front">
+            <div class="letter">A</div>
         </div>
-        <div class="countdown" id="countdown">00:00:00</div>
-        <div class="images">
-            <img class="image" src="{{ page.right_image | default: "SPRITWOCH_LOGO_v2.png" }}" alt="Right image">
+        <div class="card back">
+            <div class="letter">B</div>
+        </div>
+        <div class="card top">
+            <div class="letter">B</div>
+        </div>
+        <div class="card bottom">
+            <div class="letter">A</div>
+        </div>
+        <div class="inner-shadow">
+            
+        </div>
+        </div>
+        <div class="split-flap" id="flap-1">
+        <div class="card front">
+            <div class="letter">A</div>
+        </div>
+        <div class="card back">
+            <div class="letter">B</div>
+        </div>
+        <div class="card top">
+            <div class="letter">B</div>
+        </div>
+        <div class="card bottom">
+            <div class="letter">A</div>
+        </div>
+        <div class="inner-shadow">
+            
+        </div>
+        </div>
+        <div class="split-flap" id="flap-2">
+        <div class="card front">
+            <div class="letter">A</div>
+        </div>
+        <div class="card back">
+            <div class="letter">B</div>
+        </div>
+        <div class="card top">
+            <div class="letter">B</div>
+        </div>
+        <div class="card bottom">
+            <div class="letter">A</div>
+        </div>
+        <div class="inner-shadow">
+            
+        </div>
+        </div>
+        <div class="split-flap" id="flap-3">
+        <div class="card front">
+            <div class="letter">A</div>
+        </div>
+        <div class="card back">
+            <div class="letter">B</div>
+        </div>
+        <div class="card top">
+            <div class="letter">B</div>
+        </div>
+        <div class="card bottom">
+            <div class="letter">A</div>
+        </div>
+        <div class="inner-shadow">
+            
+        </div>
+        </div>
+        <div class="split-flap" id="flap-4">
+        <div class="card front">
+            <div class="letter">A</div>
+        </div>
+        <div class="card back">
+            <div class="letter">B</div>
+        </div>
+        <div class="card top">
+            <div class="letter">B</div>
+        </div>
+        <div class="card bottom">
+            <div class="letter">A</div>
+        </div>
+        <div class="inner-shadow">
+            
+        </div>
+        </div>
+        <div class="split-flap" id="flap-5">
+        <div class="card front">
+            <div class="letter">A</div>
+        </div>
+        <div class="card back">
+            <div class="letter">B</div>
+        </div>
+        <div class="card top">
+            <div class="letter">B</div>
+        </div>
+        <div class="card bottom">
+            <div class="letter">A</div>
+        </div>
+        <div class="inner-shadow">
+            
+        </div>
+        </div>
+        <div class="split-flap" id="flap-6">
+        <div class="card front">
+            <div class="letter">A</div>
+        </div>
+        <div class="card back">
+            <div class="letter">B</div>
+        </div>
+        <div class="card top">
+            <div class="letter">B</div>
+        </div>
+        <div class="card bottom">
+            <div class="letter">A</div>
+        </div>
+        <div class="inner-shadow">
+            
+        </div>
+        </div>
+        <div class="split-flap" id="flap-7">
+        <div class="card front">
+            <div class="letter">A</div>
+        </div>
+        <div class="card back">
+            <div class="letter">B</div>
+        </div>
+        <div class="card top">
+            <div class="letter">B</div>
+        </div>
+        <div class="card bottom">
+            <div class="letter">A</div>
+        </div>
+        <div class="inner-shadow">
+            
+        </div>
         </div>
     </div>
 
+    <div class="sign-container">
+        <div class="sign">
+            <h1>Pool Rules</h1>
+            <ol>
+                <li>No Food, Drinks, or Glass</li>
+                <li>No Running</li>
+                <li>No Animals</li>
+                <li>No Diving</li>
+            </ol>
+            <h2>No Lifeguard On Duty</h2>
+            <h3>Swim at your own risk</h3>
+        </div>
+    </div>
+</div>
     <script>
-        const countdownElement = document.getElementById('countdown');
-        const targetDateString = '{{ page.target_date | default: "2023-04-29T17:01:00" }}';
-
-        function updateCountdown() {
-            const currentTime = new Date();
-            const targetTime = new Date(targetDateString);
-
-            const remainingTime = targetTime - currentTime;
-            if (remainingTime > 0) {
-                const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-
-                countdownElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            } else {
-                countdownElement.textContent = "ABFAHRT";
-            }
-        }
-
-        setInterval(updateCountdown, 1000);
+        const targetDateString = '{{ page.target_date | date: "%Y-%m-%dT%H:%M:%S" | default: "2023-04-29T17:01:00" }}';
     </script>
+    <script src="{{ "/assets/js/countdown.js" | relative_url }}"></script>
+    <script src="{{ "/assets/js/splitflap.js" | relative_url }}"></script>
 </body>
 </html>

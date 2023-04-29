@@ -1,76 +1,197 @@
+@font-face {
+  font-family: "Bebas Neue";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/bebasneue/v9/JTUSjIg69CK48gW7PXooxW4.ttf)
+    format("truetype");
+}
+html {
+  height: 100%;
+  overflow: hidden;
+}
 body {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100vh;
-    font-family: 'Orbitron', sans-serif;
-    background-color: #107C3E;
-    margin: 0;
-    padding: 0;
+  font-family: "Bebas Neue", sans-serif;
+  background-color: #fde9e4;
+  background-image: linear-gradient(#fa9f8b 3.1px, transparent 3.1px),
+    linear-gradient(to right, #fa9f8b 3.1px, #fde9e4 3.1px);
+  background-size: 62px 62px;
 }
 .countdown-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10vh;
 }
-.images {
-    display: flex;
-    justify-content: center;
+.wrap .split-flap {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
+  width: 90px;
+  height: 120px;
+  background: #111111;
 }
-/* .countdown {
-    font-size: 2rem;
-    color: #FFFFFF;
-    margin: 1rem 0;
-    background-color: #000000;
-    border-radius: 5px;
-    padding: 10px;
-    display: inline-flex;
-} */
-/* .time-part {
-    display: flex;
-    flex-direction: column;
-    margin: 0 1rem;
+@media screen and (max-width: 768px) {
+  .wrap .split-flap {
+    width: 30px;
+    height: 40px;
+  }
 }
-.flip {
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    height: 1.5em;
-} */
-/* .flip {
-    animation: flip 0.5s linear infinite;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    height: 1.5em;
+.wrap .split-flap .inner-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  box-shadow: inset 0 0 6px #000000;
 }
-.flip div {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+.wrap .split-flap .card {
+  z-index: 2;
+  backface-visibility: hidden;
+  transform-origin: center bottom;
+  transform: scale(0.999999);
+  transform-style: preserve-3d;
+  position: absolute;
+  box-sizing: border-box;
+  top: 9%;
+  width: 90%;
+  left: 5%;
+  height: 40%;
+  background: #333333;
+  overflow: hidden;
+  letter-spacing: 0px;
+}
+.wrap .split-flap .card .letter {
+  backface-visibility: hidden;
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  padding-top: 4%;
+  height: 200%;
+  line-height: 100%;
+  font-size: 100px;
+  text-align: center;
+  color: white;
+}
+@media screen and (max-width: 768px) {
+  .wrap .split-flap .card .letter {
+    font-size: 33px;
+  }
+}
+.wrap .split-flap .card.top {
+  z-index: 1;
+}
+.wrap .split-flap .card.bottom {
+  z-index: 1;
+}
+.wrap .split-flap .card.bottom,
+.wrap .split-flap .card.back {
+  top: 51%;
+}
+.wrap .split-flap .card.bottom .letter,
+.wrap .split-flap .card.back .letter {
+  margin-top: -59%;
+}
+.wrap .split-flap .card.back {
+  transform: rotate3d(1, 0, 0, 180deg) translateY(-1%);
+  transform-origin: center top;
+}
+.wrap .split-flap.do-flap .card.front {
+  transform: rotate3d(1, 0, 0, -180deg) translateY(1%);
+  transform-origin: center bottom;
+}
+.wrap .split-flap.do-flap .card.back {
+  transform: rotate3d(1, 0, 0, 0deg);
+  transform-origin: center top;
+}
+.sign-container {
+  display: grid;
+}
+
+.sign {
+  font-family: "Lato", sans-serif;
+  margin: 5px auto auto;
+  padding: 1em;
+  border: 1px solid #fac2b5;
+  box-shadow: 5px 5px rgba(250, 194, 181, 0.8);
+  background: url(https://assets.codepen.io/242759/felt.jpeg) 0 0/10em 10em,
+    #fef5f1;
+  background-blend-mode: hard-light;
+  color: #f74a54;
+  text-align: center;
+}
+.sign h1,
+.sign h2,
+.sign h3 {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+.sign h1 {
+  font-size: 3em;
+  margin: 0;
+}
+.sign h2 {
+  margin-bottom: 0;
+}
+.sign h3 {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 3.5px;
+  font-size: 1.4em;
+  font-weight: 400;
+}
+.sign ol {
+  padding: 0;
+  list-style-type: none;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+.sign::after {
+  display: block;
+  content: "";
+  position: fixed;
+  left: 0;
+  width: 100vw;
+  height: 40vh;
+  max-height: 100px;
+  background: rgba(197, 233, 252, 0.7);
+  animation: 4s tide ease-in infinite;
+}
+.sign::before {
+  display: block;
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 30vh;
+  max-height: 170px;
+  background-color: #fde9e4;
+  background-image: linear-gradient(#fa9f8b 5px, transparent 5px),
+    linear-gradient(to right, #fa9f8b 5px, #ffc2b3 5px);
+  background-size: 80px 30px;
+}
+
+@keyframes tide {
+  0% {
+    bottom: -5px;
+    transform: rotate(0.5deg);
+  }
+  25% {
+    bottom: -10px;
+  }
+  50% {
     bottom: 0;
-    overflow: hidden;
-    clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
-} */
-/* .flip div:last-child {
-    clip-path: polygon(0% 50%, 100% 50%, 100% 100%, 0% 100%);
-    transform-origin: top;
-    animation: flip 0.5s linear infinite;
-    animation-delay: 0.25s;
-} */
-/* .animate {
-    animation: flip 0.5s linear;
+    transform: rotate(-0.5deg);
+  }
+  75% {
+    bottom: -10px;
+  }
+  100% {
+    bottom: -5px;
+    transform: rotate(0.5deg);
+  }
 }
-@keyframes flip {
-    0% {
-        transform: perspective(300px) rotateX(0deg);
-    }
-    50% {
-        transform: perspective(300px) rotateX(-180deg);
-    }
-    100% {
-        transform: perspective(300px) rotateX(0deg);
-    }
-} */

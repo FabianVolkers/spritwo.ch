@@ -26,10 +26,21 @@ body {
   align-items: center;
   margin-top: 10vh;
 }
+.wrap {
+    background-color: #000;
+    padding: 0.5em 1em;
+    /* border-image: linear-gradient(to right,#555, #000) 1 100%;
+    border-width: 10px;
+    border-style: solid; */
+    box-shadow: rgba(250, 194, 181, 0.8) 8px 8px 0px 0px;
+
+
+}
 .wrap .split-flap {
   position: relative;
   display: inline-block;
-  margin-right: 10px;
+  /* margin-right: 10px; */
+  margin: 0px 5px;
   width: 90px;
   height: 120px;
   background: #111111;

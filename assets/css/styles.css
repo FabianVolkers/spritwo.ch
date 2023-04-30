@@ -1,6 +1,10 @@
 :root {
     --spritwoch-green: #107C3E;
+    --spritwoch-green-light: #cfedc2;
+    --spritwoch-green-shadow: #107c3fc2;
     --spritwoch-red: #BC2025;
+    --spritwoch-red-light: #f7bbbb; 
+    /* Old light red: #ffc2b3 */
 }
 @font-face {
   font-family: "Bebas Neue";
@@ -20,8 +24,8 @@ html {
 body {
   font-family: "Bebas Neue", sans-serif;
   background-color: #fde9e4;
-  background-image: linear-gradient(#fa9f8b 3.1px, transparent 3.1px),
-    linear-gradient(to right, #fa9f8b 3.1px, #fde9e4 3.1px);
+  background-image: linear-gradient(var(--spritwoch-green) 3.1px, transparent 3.1px),
+    linear-gradient(to right, var(--spritwoch-green) 3.1px, var(--spritwoch-green-light) 3.1px);
   background-size: 62px 62px;
 }  
 .countdown-container {
@@ -36,9 +40,7 @@ body {
     /* border-image: linear-gradient(to right,#555, #000) 1 100%;
     border-width: 10px;
     border-style: solid; */
-    box-shadow: rgba(250, 194, 181, 0.8) 8px 8px 0px 0px;
-
-
+  box-shadow: var(--spritwoch-green-shadow) 8px 8px 0px 0px;
 }
 .wrap .split-flap {
   position: relative;
@@ -135,12 +137,12 @@ body {
   font-family: "Lato", sans-serif;
   margin: 5px auto auto;
   padding: 1em;
-  border: 1px solid #fac2b5;
-  box-shadow: 5px 5px rgba(250, 194, 181, 0.8);
-  background: url(https://assets.codepen.io/242759/felt.jpeg) 0 0/10em 10em,
+  border: 1px solid var(--spritwoch-red-light);
+  box-shadow: 5px 5px var(--spritwoch-green-shadow);
+  background: url(/assets/image/felt.jpeg) 0 0/10em 10em,
     #fef5f1;
   background-blend-mode: hard-light;
-  color: #f74a54;
+  color: var(--spritwoch-red);
   text-align: center;
 }
 .sign h1,
@@ -195,6 +197,7 @@ body {
   background: rgba(197, 233, 252, 0.7);
   animation: 4s tide ease-in infinite;
 }
+/* Bottom tile styling */
 .sign::before {
   display: block;
   content: "";
@@ -205,8 +208,8 @@ body {
   height: 30vh;
   max-height: 170px;
   background-color: #fde9e4;
-  background-image: linear-gradient(#fa9f8b 5px, transparent 5px),
-    linear-gradient(to right, #fa9f8b 5px, #ffc2b3 5px);
+  background-image: linear-gradient(var(--spritwoch-red) 5px, transparent 5px),
+    linear-gradient(to right, var(--spritwoch-red) 5px, var(--spritwoch-red-light) 5px);
   background-size: 80px 30px;
 }
 

@@ -1,3 +1,7 @@
+:root {
+    --spritwoch-green: #107C3E;
+    --spritwoch-red: #BC2025;
+}
 @font-face {
   font-family: "Bebas Neue";
   font-style: normal;

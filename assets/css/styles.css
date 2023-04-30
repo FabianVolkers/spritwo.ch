@@ -374,7 +374,8 @@ body {
         display: grid;
         grid-template:
             'splitflap splitflap splitflap'
-            'desktop-logo-left pool-sign desktop-logo-right';
+            'desktop-logo-left pool-sign desktop-logo-right'
+            'footer footer footer' auto;
     }
 }
     
@@ -384,12 +385,27 @@ body {
         grid-template:
             'mobile-logo'
             'splitflap'
-            'pool-sign';
+            'pool-sign'
+            'footer' auto;
     }
 }
     
-
+.footer {
+    grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    height: auto;
+    z-index: 1;
+}
+.footer p {
+    margin-left: auto;
+    margin-right: auto;
+}
 .grid-container {
-    margin-top: 6vh;
+    padding-top: 6vh;
     gap: 6vh;
+    height: 100vh;
 }

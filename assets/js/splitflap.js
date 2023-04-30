@@ -116,9 +116,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     for (let i = 0; i < timeString.length; ++i) {
       let letter = timeString[i];
-      j = 0;
+      let j = lettersNumbersSpecialChars.indexOf(splitFlaps[i].letter());
       while (letter !== lettersNumbersSpecialChars[j]) {
         ++j;
+        if (j >= lettersNumbersSpecialChars.length) {
+          j = 0;
+        }
         splitFlaps[i].to(lettersNumbersSpecialChars[j], 10, 0);
       }
 

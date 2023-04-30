@@ -117,8 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function beginCountdown() {
     console.log("begin countdown");
-
-    setInterval(() => {
+    let refreshIntervalId = setInterval(() => {
       let now = new Date();
 
       const remainingTime = targetDate - now;
@@ -126,6 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (remainingTime < 0) {
         let dateStr = " ABFAHRT! ";
         animateSplitFlapsToString(dateStr, splitFlaps);
+        clearInterval(refreshIntervalId);
         // for (let i = 0; i < dateStr.length; ++i) {
         //   splitFlaps[i + 1].to(dateStr[i]);
         // }

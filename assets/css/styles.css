@@ -261,7 +261,22 @@ body {
   font-size: 1.4em;
   font-weight: 400;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 480px) {
+    .sign h1 {
+      font-size: 1.5em;
+    }
+    .sign h2 {
+      font-size: 1em;
+    }
+    .sign h3 {
+      font-size: 1em;
+    }
+    .sign ol {
+      font-size: 0.7rem;
+    }
+  }
+
+@media screen  and (min-width: 481px) and (max-width: 768px) {
   .sign h1 {
     font-size: 2em;
   }

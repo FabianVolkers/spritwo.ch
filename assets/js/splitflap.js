@@ -98,6 +98,33 @@ document.addEventListener("DOMContentLoaded", function () {
       );
     }
     const targetDate = new Date(targetDateString);
+    setTimeout(() => {
+        let now = new Date();
+        const remainingTime = targetDate - now;
+        // Count up from 0 until remaingTime is reached
+        // let countUp = 0
+        // while(countUp < remainingTime) {
+        //     console.log(countUp)
+        //     const hours = Math.floor(countUp / (1000 * 60 * 60));
+        //     const minutes = Math.floor(
+        //         (countUp % (1000 * 60 * 60)) / (1000 * 60)
+        //     );
+        //     const seconds = Math.floor((countUp % (1000 * 60)) / 1000);
+        //     const hoursStr = String(hours).padStart(2, "0");
+        //     const minutesStr = String(minutes).padStart(2, "0");
+        //     const secondsStr = String(seconds).padStart(2, "0");
+        //     let dateStr = hoursStr + ":" + minutesStr + ":" + secondsStr;
+        //     for (let i = 0; i < dateStr.length; ++i) {
+        //         splitFlaps[i+1].to(dateStr[i], 5, 0);
+        //     }
+        //     countUp += 1000;
+        // }
+        beginCountdown();
+    }, 1000);
+
+    function beginCountdown() {
+        console.log("begin countdown")
+
     setInterval(() => {
       let now = new Date();
     //   let hours = ("0" + now.getHours()).substr(-2);
@@ -137,6 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
         splitFlaps[i+1].to(dateStr[i]);
       }
     }, 1000);
+}
 });
 
 

@@ -53,7 +53,7 @@ class SplitFlap {
               window.requestAnimationFrame(() => {
                 _animationRunning = false;
                 if (_animationStack.length > 0) {
-                  self.to(_animationStack.shift());
+                  self.to(_animationStack.shift(), animationTime, animationDelayTime);
                 }
               });
             });

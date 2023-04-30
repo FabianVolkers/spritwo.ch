@@ -11,11 +11,22 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/bebasneue/v9/JTUSjIg69CK48gW7PXooxW4.ttf)
+  src: url(/assets/font/Bebas_Neue/BebasNeue-Regular.ttf)
     format("truetype");
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap");
+@font-face {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    src: url(/assets/font/Lato/Lato-Regular.ttf);
+}
+@font-face {
+    font-family: "Lato";
+    font-style: bold;
+    font-weight: 900;
+    src: url(/assets/font/Lato/Lato-Bold.ttf);
+}
 
 html {
   height: 100%;

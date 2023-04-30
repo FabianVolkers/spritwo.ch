@@ -131,18 +131,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setInterval(() => {
       let now = new Date();
-      //   let hours = ("0" + now.getHours()).substr(-2);
-      //   let minutes = ("0" + now.getMinutes()).substr(-2);
-      //   let seconds = ("0" + now.getSeconds()).substr(-2);
-
-      //   let dateStr = hours + ":" + minutes + ":" + seconds;
       splitFlaps[0].to(" ");
       splitFlaps[9].to(" ");
       const remainingTime = targetDate - now;
 
       if (remainingTime < 0) {
-        //   clearInterval(intervalId);
-        //   countdown.textContent = "00 : 00 : 00";
         let dateStr = "ABFAHRT!";
         for (let i = 0; i < dateStr.length; ++i) {
           splitFlaps[i + 1].to(dateStr[i]);
@@ -159,9 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const hoursStr = String(hours).padStart(2, "0");
       const minutesStr = String(minutes).padStart(2, "0");
       const secondsStr = String(seconds).padStart(2, "0");
-      //   let hours = ('0' + now.getHours()).substr(-2);
-      //   let minutes = ('0' + now.getMinutes()).substr(-2);
-      //   let seconds = ('0' + now.getSeconds()).substr(-2);
 
       let dateStr = hoursStr + ":" + minutesStr + ":" + secondsStr;
       for (let i = 0; i < dateStr.length; ++i) {

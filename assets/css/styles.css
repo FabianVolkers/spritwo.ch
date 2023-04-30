@@ -56,10 +56,9 @@ body {
 .wrap .split-flap {
   position: relative;
   display: inline-block;
-  /* margin-right: 10px; */
-  /* margin: 0px 5px;
-  width: 90px;
-  height: 120px; */
+  width: 9%;
+  padding-bottom: 12%;
+  margin: 0px 0.5%;
   background: #111111;
 }
 .wrap .split-flap .inner-shadow {
@@ -163,12 +162,12 @@ body {
         grid-template-rows: auto auto;
     }
     .wrap {
-        width: 70vw;
+        width: 70%;
     }
     .wrap .split-flap {
-        width: 9%;
+        /* width: 9%;
         padding-bottom: 12%;
-        margin: 0px 0.5%;
+        margin: 0px 0.5%; */
       }
   .wrap .split-flap .card .letter {
     font-size: 7.5vw;
@@ -198,15 +197,15 @@ body {
         grid-template-rows: auto;
     }
     .spritwoch-sign img {
-        max-width: 10vw;
+        max-width: 180px;
     }
     .wrap {
-        width: 80vw;
+        width: 80%;
     }
     .wrap .split-flap {
-        width: 9%;
+        /* width: 9%;
         padding-bottom: 12%;
-        margin: 0px 0.5%;
+        margin: 0px 0.5%; */
       }
   .wrap .split-flap .card .letter {
     font-size: 8.4vw;
@@ -214,8 +213,14 @@ body {
 }
 
 @media screen and (min-width: 1201px) {
+    /* Limit grid with to 80vw */
+    .grid-container {
+        width: 80vw;
+        margin: 0px 10vw;
+    }
+    /* Correct split-flap font size */
   .wrap .split-flap .card .letter {
-    /* font-size: 3vw; */
+    font-size: 6.7vw;
   }
 }
 

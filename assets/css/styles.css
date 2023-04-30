@@ -57,9 +57,9 @@ body {
   position: relative;
   display: inline-block;
   /* margin-right: 10px; */
-  margin: 0px 5px;
+  /* margin: 0px 5px;
   width: 90px;
-  height: 120px;
+  height: 120px; */
   background: #111111;
 }
 .wrap .split-flap .inner-shadow {
@@ -128,7 +128,7 @@ body {
   transform-origin: center top;
 }
 
-@media screen and (max-width: 480px) {
+/* @media screen and (max-width: 480px) {
     .wrap {
         padding: 0.2em 0.5em;
         box-shadow: var(--spritwoch-green-shadow) 4px 4px 0px 0px;
@@ -141,7 +141,7 @@ body {
       .wrap .split-flap .card .letter {
         font-size: 24px;
       }
-}
+} */
 
 @media screen and /*(min-width: 481px) and */ (max-width: 768px) {
     .desktop {
@@ -162,9 +162,19 @@ body {
         grid-template-columns: auto;
         grid-template-rows: auto auto;
     }
-
+    .wrap {
+        width: 70vw;
+    }
+    .wrap .split-flap {
+        width: 9%;
+        padding-bottom: 12%;
+        margin: 0px 0.5%;
+      }
+  .wrap .split-flap .card .letter {
+    font-size: 7.5vw;
+  }
 }
-@media screen and (min-width: 481px) and (max-width: 768px) {
+/* @media screen and (min-width: 481px) and (max-width: 768px) {
     .wrap .split-flap {
         width: 30px;
         height: 40px;
@@ -173,7 +183,7 @@ body {
       .wrap .split-flap .card .letter {
         font-size: 33px;
       }
-}
+} */
 
 @media screen and (min-width: 769px) /* and (max-width: 1200px) */ {
     .mobile {
@@ -190,8 +200,16 @@ body {
     .spritwoch-sign img {
         max-width: 10vw;
     }
+    .wrap {
+        width: 80vw;
+    }
+    .wrap .split-flap {
+        width: 9%;
+        padding-bottom: 12%;
+        margin: 0px 0.5%;
+      }
   .wrap .split-flap .card .letter {
-    /* font-size: 4vw; */
+    font-size: 8vw;
   }
 }
 

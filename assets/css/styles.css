@@ -43,7 +43,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10vh;
+  /* margin-top: 10vh; */
 }
 .wrap {
   background-color: #000;
@@ -150,9 +150,9 @@ body {
     .mobile {
         display: flex;
     }
-    .spritwoch-sign {
+    /* .spritwoch-sign {
         margin-bottom: 5vh;
-    }
+    } */
     .spritwoch-sign img{
         max-width: 80vw;
         padding: 10px;
@@ -343,4 +343,30 @@ body {
     bottom: -5px;
     transform: rotate(0.5deg);
   }
+}
+
+/* Grid Definition */
+@media screen and (min-width: 769px) {
+    .grid-container {
+        display: grid;
+        grid-template:
+            'splitflap splitflap splitflap'
+            'desktop-logo-left pool-sign desktop-logo-right';
+    }
+}
+    
+@media screen and (max-width: 768px) {
+    .grid-container {
+        display: grid;
+        grid-template:
+            'mobile-logo'
+            'splitflap'
+            'pool-sign';
+    }
+}
+    
+
+.grid-container {
+    margin-top: 5vh;
+    gap: 5vh;
 }

@@ -5,31 +5,38 @@
     <link rel="stylesheet" href="{{ "/assets/css/styles.css" | relative_url }}">
 </head>
 <body>
-  <div class="countdown-container">
-    <div id="wrap" class="wrap">
+  <div class="grid-container">
+    <div id="top-sign" class="spritwoch-sign mobile style="grid-area: mobile-logo">
+      <img src="{{ "/assets/image/SPRITWOCH_LOGO_horizontal.png" | relative_url }}" alt="Spritwoch Logo" style="object-fit: contain;">
+    </div>
+    <div class="countdown-container" style="grid-area: splitflap;">
+      <div id="wrap" class="wrap">
         <div class="inner-shadow"></div>
       </div>
     </div>
+
+    <div id="left-sign" class="desktop spritwoch-sign" style="grid-area: desktop-logo-left;">
+      <img src="{{ "/assets/image/SPRITWOCH_LOGO_v2_no_bg.png" | relative_url }}" alt="Spritwoch Logo" style="object-fit: contain;">
+    </div>
+
+    <div class="sign" style="grid-area: pool-sign;">
+      <h1>Pool Rules</h1>
+      <ol>
+        <li>Food, Drinks and everything allowed</li>
+        <li>No Running</li>
+        <li>No Diving</li>
+      </ol>
+      <h2>No Lifeguard On Duty</h2>
+      <h3>Swim at your own risk</h3>
+    </div>
+    <div id="right-sign" class="spritwoch-sign desktop" style="grid-area: desktop-logo-right;">
+      <img src="{{ "/assets/image/SPRITWOCH_LOGO_v2_no_bg.png" | relative_url }}" alt="Spritwoch Logo" style="object-fit: contain;">
+    </div>
+
+  </div>
+  
     <div class="sign-container">
-      <div id="left-sign" class="desktop spritwoch-sign">
-        <img src="{{ "/assets/image/SPRITWOCH_LOGO_v2_no_bg.png" | relative_url }}" alt="Spritwoch Logo" style="object-fit: contain;">
-      </div>
-      <div id="top-sign" class="spritwoch-sign mobile">
-        <img src="{{ "/assets/image/SPRITWOCH_LOGO_horizontal.png" | relative_url }}" alt="Spritwoch Logo" style="object-fit: contain;">
-      </div>
-      <div class="sign">
-        <h1>Pool Rules</h1>
-        <ol>
-          <li>Food, Drinks and everything allowed</li>
-          <li>No Running</li>
-          <li>No Diving</li>
-        </ol>
-        <h2>No Lifeguard On Duty</h2>
-        <h3>Swim at your own risk</h3>
-      </div>
-      <div id="right-sign" class="spritwoch-sign desktop">
-        <img src="{{ "/assets/image/SPRITWOCH_LOGO_v2_no_bg.png" | relative_url }}" alt="Spritwoch Logo" style="object-fit: contain;">
-      </div>
+
     </div>
   </div>
   <script>

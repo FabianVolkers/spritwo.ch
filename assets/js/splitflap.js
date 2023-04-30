@@ -14,7 +14,8 @@ class SplitFlap {
         var _animationRunning = false; // is true if we do an animation
         var _animationClassName = "do-flap";
 
-        self.to = function (letter) {
+        self.to = function (letter, animationTime = _animationTime, animationDelayTime = _animationDelayTime) {
+            // console.log("Animation time: " + animationTime + "ms")
             if (_animationRunning === true) {
                 _animationStack.push(letter);
             } else if (letter === self.letter()) {
@@ -28,9 +29,9 @@ class SplitFlap {
 
                 // set transision active to elements
                 _cardFrontLetter.parentNode.style.transition =
-                    "transform " + _animationTime + "ms";
+                    "transform " + animationTime + "ms";
                 _cardBackLetter.parentNode.style.transition =
-                    "transform " + _animationTime + "ms";
+                    "transform " + animationTime + "ms";
 
                 // do animation
                 window.requestAnimationFrame(() => {
@@ -52,7 +53,7 @@ class SplitFlap {
                                 }
                             });
                         });
-                    }, _animationTime + _animationDelayTime);
+                    }, animationTime + animationDelayTime);
                 });
             }
         };

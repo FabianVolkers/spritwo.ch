@@ -133,6 +133,28 @@ body {
   margin-top: 5vh;
 }
 
+.spritwoch-sign {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* grid-area: left; */
+    /* margin-right: 5vw;
+    margin-left: 5vw;*/
+    width: 100%;
+}
+
+.spritwoch-sign img {
+    max-width: 10vw;
+    height: auto;
+    box-shadow: 5px 5px var(--spritwoch-green-shadow);
+    /* background-color: #fff; */
+    background: url(/assets/image/felt.jpeg) 0 0/10em 10em,
+    #fef5f1;
+    background-blend-mode: hard-light;
+    border-radius: 15px;
+    border: 1px solid var(--spritwoch-red-light);
+}
+
 .sign {
   font-family: "Lato", sans-serif;
   margin: 5px auto auto;

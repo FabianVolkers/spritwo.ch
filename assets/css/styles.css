@@ -49,6 +49,7 @@ body {
   .wrap .split-flap {
     width: 30px;
     height: 40px;
+    margin: 0px 2px;
   }
 }
 .wrap .split-flap .inner-shadow {

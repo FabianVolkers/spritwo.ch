@@ -129,9 +129,17 @@ body {
 }
 
 @media screen and (max-width: 480px) {
-  .wrap .split-flap .card .letter {
-    /* font-size: 8vw; */
-  }
+    .wrap {
+        padding: 0.2em 0.5em;
+    }
+    .wrap .split-flap {
+        width: 21px;
+        height: 28px;
+        margin: 0px 1px;
+      }
+      .wrap .split-flap .card .letter {
+        font-size: 24px;
+      }
 }
 
 @media screen and /*(min-width: 481px) and */ (max-width: 768px) {
@@ -153,14 +161,17 @@ body {
         grid-template-columns: auto;
         grid-template-rows: auto auto;
     }
-  .wrap .split-flap {
-    width: 30px;
-    height: 40px;
-    margin: 0px 2px;
-  }
-  .wrap .split-flap .card .letter {
-    font-size: 33px;
-  }
+
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .wrap .split-flap {
+        width: 30px;
+        height: 40px;
+        margin: 0px 2px;
+      }
+      .wrap .split-flap .card .letter {
+        font-size: 33px;
+      }
 }
 
 @media screen and (min-width: 769px) /* and (max-width: 1200px) */ {

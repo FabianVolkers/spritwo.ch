@@ -19,7 +19,7 @@ body {
   background-image: linear-gradient(#fa9f8b 3.1px, transparent 3.1px),
     linear-gradient(to right, #fa9f8b 3.1px, #fde9e4 3.1px);
   background-size: 62px 62px;
-}
+}  
 .countdown-container {
   display: flex;
   flex-direction: column;
@@ -146,7 +146,7 @@ body {
   letter-spacing: 3px;
 }
 .sign h1 {
-  font-size: 3em;
+  font-size: 3rem;
   margin: 0;
 }
 .sign h2 {
@@ -159,6 +159,21 @@ body {
   font-size: 1.4em;
   font-weight: 400;
 }
+@media screen and (max-width: 768px) {
+  .sign h1 {
+    font-size: 2em;
+  }
+  .sign h2 {
+    font-size: 1.5em;
+  }
+  .sign h3 {
+    font-size: 1em;
+  }
+  .sign ol {
+    font-size: 1rem;
+  }
+}
+    
 .sign ol {
   padding: 0;
   list-style-type: none;

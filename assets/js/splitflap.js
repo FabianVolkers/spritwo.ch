@@ -105,24 +105,25 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(() => {
     let now = new Date();
     const remainingTime = targetDate - now;
-    // Count up from 0 until remaingTime is reached
-    // let countUp = 0
-    // while(countUp < remainingTime) {
-    //     console.log(countUp)
-    //     const hours = Math.floor(countUp / (1000 * 60 * 60));
-    //     const minutes = Math.floor(
-    //         (countUp % (1000 * 60 * 60)) / (1000 * 60)
-    //     );
-    //     const seconds = Math.floor((countUp % (1000 * 60)) / 1000);
-    //     const hoursStr = String(hours).padStart(2, "0");
-    //     const minutesStr = String(minutes).padStart(2, "0");
-    //     const secondsStr = String(seconds).padStart(2, "0");
-    //     let dateStr = hoursStr + ":" + minutesStr + ":" + secondsStr;
-    //     for (let i = 0; i < dateStr.length; ++i) {
-    //         splitFlaps[i+1].to(dateStr[i], 5, 0);
-    //     }
-    //     countUp += 1000;
-    // }
+
+    const lettersNumbersSpecialChars = [
+      '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+      ' ', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', '{', ']', '}', ';', ':', ',', '<', '.', '>', '/', '?', '|', '\\', '`', '~'
+    ];
+
+    const timeString = ` ${getTimeString(remainingTime)} `;
+
+    for (let i = 0; i < timeString.length; ++i) {
+      let letter = timeString[i];
+      j = 0;
+      while (letter !== lettersNumbersSpecialChars[j]) {
+        ++j;
+        splitFlaps[i].to(lettersNumbersSpecialChars[j], 10, 0);
+      }
+
+    }
+
     beginCountdown();
   }, 1000);
 
@@ -143,20 +144,25 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      const hours = Math.floor(remainingTime / (1000 * 60 * 60));
-      const minutes = Math.floor(
-        (remainingTime % (1000 * 60 * 60)) / (1000 * 60)
-      );
-      const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-
-      const hoursStr = String(hours).padStart(2, "0");
-      const minutesStr = String(minutes).padStart(2, "0");
-      const secondsStr = String(seconds).padStart(2, "0");
-
-      let dateStr = hoursStr + ":" + minutesStr + ":" + secondsStr;
+      let dateStr = getTimeString(remainingTime);
       for (let i = 0; i < dateStr.length; ++i) {
         splitFlaps[i + 1].to(dateStr[i]);
       }
     }, 1000);
   }
 });
+function getTimeString(milliseconds) {
+  const hours = Math.floor(milliseconds / (1000 * 60 * 60));
+  const minutes = Math.floor(
+    (milliseconds % (1000 * 60 * 60)) / (1000 * 60)
+  );
+  const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
+
+  const hoursStr = String(hours).padStart(2, "0");
+  const minutesStr = String(minutes).padStart(2, "0");
+  const secondsStr = String(seconds).padStart(2, "0");
+
+  let dateStr = hoursStr + ":" + minutesStr + ":" + secondsStr;
+  return dateStr;
+}
+

@@ -131,6 +131,7 @@ body {
 @media screen and (max-width: 480px) {
     .wrap {
         padding: 0.2em 0.5em;
+        box-shadow: var(--spritwoch-green-shadow) 4px 4px 0px 0px;
     }
     .wrap .split-flap {
         width: 21px;

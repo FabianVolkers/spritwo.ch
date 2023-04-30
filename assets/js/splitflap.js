@@ -14,11 +14,8 @@ class SplitFlap {
     var _animationRunning = false; // is true if we do an animation
     var _animationClassName = "do-flap";
 
-    self.to = function (
-      letter,
-      animationTime = _animationTime,
-      animationDelayTime = _animationDelayTime
-    ) {
+    self.to = (letter, animationTime=_animationTime, animationDelayTime=_animationDelayTime) => {
+
       // console.log("Animation time: " + animationTime + "ms")
       if (_animationRunning === true) {
         _animationStack.push(letter);

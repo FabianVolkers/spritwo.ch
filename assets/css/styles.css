@@ -43,6 +43,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   /* margin-top: 10vh; */
 }
 .wrap {
@@ -376,6 +377,7 @@ body {
             'splitflap splitflap splitflap'
             'desktop-logo-left pool-sign desktop-logo-right'
             'footer footer footer' auto;
+        gap: 6vh;
     }
 }
     
@@ -387,6 +389,7 @@ body {
             'splitflap'
             'pool-sign'
             'footer' auto;
+        gap: 2.5vh;
     }
 }
     
@@ -406,6 +409,5 @@ body {
 }
 .grid-container {
     padding-top: 6vh;
-    gap: 6vh;
     height: 100vh;
 }

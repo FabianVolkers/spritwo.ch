@@ -23,7 +23,7 @@ def update_target_date(file_path, target_date):
         f.write(updated_content)
 
 # Load the upcoming event date from calendar_events.json
-upcoming_event_date = load_upcoming_event_date('calendar_events.json')
+upcoming_event_date = load_upcoming_event_date('.github/workflows/calendar_events.json')
 upcoming_event_date = upcoming_event_date.replace(microsecond=0).isoformat()
 
 # Update the target_date in index.markdown

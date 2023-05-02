@@ -3,7 +3,7 @@ name: Update Target Date
 on:
   push:
     paths:
-      - 'calendar_events.json'
+      - '.github/workflows/calendar_events.json'
 
 jobs:
   update_target_date:

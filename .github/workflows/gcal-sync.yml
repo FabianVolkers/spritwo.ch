@@ -26,8 +26,9 @@ jobs:
     - name: Fetch Google Calendar events and save to JSON
       env:
         GOOGLE_CALENDAR_ID: ${{ secrets.GOOGLE_CALENDAR_ID }}
-        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
       run: |
+        echo "$GOOGLE_SERVICE_ACCOUNT_KEY" > service_account_key.json
         python fetch_calendar_events.py
 
     - name: Commit and push changes

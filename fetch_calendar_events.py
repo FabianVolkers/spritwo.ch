@@ -6,9 +6,11 @@ from googleapiclient.discovery import build
 
 # Set up Google Calendar API
 calendar_id = os.environ["GOOGLE_CALENDAR_ID"]
-api_key = os.environ["GOOGLE_API_KEY"]
+service_account_key_file = "service_account_key.json"
 
-calendar_service = build('calendar', 'v3', developerKey=api_key)
+creds = service_account.Credentials.from_service_account_file(service_account_key_file, scopes=['https://www.googleapis.com/auth/calendar.readonly'])
+
+calendar_service = build('calendar', 'v3', credentials=creds)
 
 # Get events from the Google Calendar
 now = datetime.utcnow().isoformat() + 'Z'

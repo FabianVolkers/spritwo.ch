@@ -20,7 +20,7 @@ jobs:
 
     - name: Update target date in index.markdown
       run: |
-        python update_target_date.py
+        python .github/workflow-helpers/update_target_date.py
 
     - name: Commit and push changes
       run: |

@@ -1,5 +1,6 @@
 import os
 import json
+import pytz
 from datetime import datetime
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
@@ -29,9 +30,15 @@ def save_updated_events(file_path, existing_events, new_events):
 
     # Retain past events that are not in the new events list and are outside the requested time range
     now = datetime.utcnow()
+    now = now.astimezone(pytz.utc)
     for event_id, event in existing_events.items():
         event_start = event['start'].get('dateTime') or event['start'].get('date')
+        event_timezone = event['start'].get('timeZone')
         event_start = datetime.fromisoformat(event_start)
+        if event_timezone:
+            timezone = pytz.timezone(event_timezone)
+            event_start = event_start.astimezone(timezone)
+            
         if event_id not in updated_events and event_start < now:
             updated_events[event_id] = event
 

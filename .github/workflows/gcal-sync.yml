@@ -29,12 +29,12 @@ jobs:
         GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
       run: |
         echo "$GOOGLE_SERVICE_ACCOUNT_KEY" > service_account_key.json
-        python fetch_calendar_events.py
+        python .github/workflows/fetch_calendar_events.py
 
     - name: Commit and push changes
       run: |
         git config user.name "GitHub Actions Bot"
-        git config user.email "actions@github.com"
-        git add calendar_events.json
+        git config user.email "FabianVolkers@users.noreply.github.com"
+        git add .github/workflows/calendar_events.json
         git commit -m "Update calendar_events.json with latest events" || exit 0
         git push

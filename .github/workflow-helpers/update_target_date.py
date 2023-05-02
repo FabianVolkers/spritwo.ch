@@ -21,8 +21,12 @@ def load_upcoming_event_date(file_path):
 
         future_event_dates = [event_date for event_date in event_dates if event_date > now]
         upcoming_event_date = None
+
         if len(future_event_dates) > 0:
             upcoming_event_date = min(future_event_dates)
+        elif len(event_dates) > 0:
+            upcoming_event_date = max(event_dates)
+
         return upcoming_event_date
 
 def update_target_date(file_path, target_date):

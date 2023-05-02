@@ -38,6 +38,7 @@ body {
   background-image: linear-gradient(var(--spritwoch-green) 3.1px, transparent 3.1px),
     linear-gradient(to right, var(--spritwoch-green) 3.1px, var(--spritwoch-green-light) 3.1px);
   background-size: 62px 62px;
+  height: 100%;
 }
 .countdown-container {
   display: flex;
@@ -409,5 +410,5 @@ body {
 }
 .grid-container {
     padding-top: 6vh;
-    height: 100vh;
+    height: 100%;
 }

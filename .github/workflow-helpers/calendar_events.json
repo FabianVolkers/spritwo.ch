@@ -255,5 +255,20 @@
       "dateTime": "2023-04-05T23:45:00+02:00",
       "timeZone": "Europe/Berlin"
     }
+  },
+  "6rome5ov8n500grbb2co2p4d0g": {
+    "id": "6rome5ov8n500grbb2co2p4d0g",
+    "htmlLink": "https://www.google.com/calendar/event?eid=NnJvbWU1b3Y4bjUwMGdyYmIyY28ycDRkMGcgY183ODc5YjlkMDk5YmNiODQzY2Q5N2ViMDVlYTlhNThmNGNmOWQyYjY0Y2JkY2M3NTA1YTEzMDYzODZlOTBhYjliQGc",
+    "created": "2023-05-02T21:07:54.000Z",
+    "updated": "2023-05-02T21:07:56.264Z",
+    "summary": "spritwo.ch test event",
+    "start": {
+      "dateTime": "2023-05-11T13:00:00+02:00",
+      "timeZone": "Europe/Berlin"
+    },
+    "end": {
+      "dateTime": "2023-05-11T14:00:00+02:00",
+      "timeZone": "Europe/Berlin"
+    }
   }
 }

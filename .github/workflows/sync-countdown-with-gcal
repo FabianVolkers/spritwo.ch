@@ -1,0 +1,92 @@
+name: Google Calendar Sync and Update Target Date
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Run every hour
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    outputs:
+      json_updated: ${{ steps.commit_changes.outputs.json_updated }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        ref: main
+        fetch-depth: 0
+        token: ${{ secrets.PAT }}
+
+    - name: Create and checkout new branch
+      run: |
+        git checkout -b calendar-sync-update
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
+
+    - name: Fetch Google Calendar events and save to JSON
+      env:
+        GOOGLE_CALENDAR_ID: ${{ secrets.GOOGLE_CALENDAR_ID }}
+        GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+      run: |
+        echo "$GOOGLE_SERVICE_ACCOUNT_KEY" > service_account_key.json
+        python .github/workflow-helpers/fetch_calendar_events.py
+
+    - name: Commit and push changes
+      id: commit_changes
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "FabianVolkers@users.noreply.github.com"
+        git add .github/workflow-helpers/calendar_events.json
+        git commit -m "Update calendar_events.json with latest events"
+        JSON_UPDATED=$?
+        echo "::set-output name=json_updated::$JSON_UPDATED"
+        git push origin calendar-sync-update || exit 0
+
+  update_target_date:
+    if: ${{ needs.sync.outputs.json_updated == '0' }}
+    needs: sync
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        ref: calendar-sync-update
+        fetch-depth: 0
+        token: ${{ secrets.PAT }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Update target date in index.markdown
+      run: |
+        python .github/workflow-helpers/update_target_date.py
+
+    - name: Commit and push changes
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "FabianVolkers@users.noreply.github.com"
+        git add index.markdown
+        git commit -m "Update target_date in index.markdown" || exit 0
+        git push origin calendar-sync-update
+
+    - name: Merge and push changes
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "FabianVolkers@users.noreply.github.com"
+        git checkout main
+        git merge --no-ff --no-edit calendar-sync-update
+        git push origin main

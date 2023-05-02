@@ -1,9 +1,10 @@
 name: Update Target Date
 
 on:
-  push:
-    paths:
-      - '.github/workflow-helpers/calendar_events.json'
+  workflow_dispatch:
+  # push:
+  #   paths:
+  #     - '.github/workflow-helpers/calendar_events.json'
 
 jobs:
   update_target_date:

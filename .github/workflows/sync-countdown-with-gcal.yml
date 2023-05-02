@@ -18,7 +18,7 @@ jobs:
       with:
         ref: main
         fetch-depth: 0
-        token: ${{ secrets.PAT }}
+        token: ${{ secrets.GH_TOKEN }}
 
     - name: Create and checkout new branch
       run: |
@@ -64,7 +64,7 @@ jobs:
       with:
         ref: calendar-sync-update
         fetch-depth: 0
-        token: ${{ secrets.PAT }}
+        token: ${{ secrets.GH_TOKEN }}
 
     - name: Set up Python
       uses: actions/setup-python@v2

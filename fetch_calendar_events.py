@@ -14,6 +14,9 @@ def load_existing_events(file_path):
 def save_updated_events(file_path, existing_events, new_events):
     for new_event in new_events:
         event_id = new_event['id']
+        for key in ['attendees', 'creator', 'organizer']:
+            # Remove email addresses from event
+            new_event.pop(key, None)
         existing_events[event_id] = new_event
 
     with open(file_path, 'w') as f:

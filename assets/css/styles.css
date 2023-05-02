@@ -30,7 +30,9 @@
 
 html {
   height: 100%;
+  width: 100%;
   overflow: hidden;
+  position: absolute
 }
 body {
   font-family: "Bebas Neue", sans-serif;
@@ -39,6 +41,8 @@ body {
     linear-gradient(to right, var(--spritwoch-green) 3.1px, var(--spritwoch-green-light) 3.1px);
   background-size: 62px 62px;
   height: 100%;
+  width: 100%;
+  margin: 0;
 }
 .countdown-container {
   display: flex;

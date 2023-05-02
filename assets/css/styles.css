@@ -386,10 +386,10 @@ body {
     .grid-container {
         display: grid;
         grid-template:
-            'mobile-logo'
-            'splitflap'
-            'pool-sign'
-            'footer' auto;
+            'mobile-logo' 1fr
+            'splitflap' 1fr
+            'pool-sign' 2fr
+            'footer' 3fr;
         gap: 2.5vh;
     }
 }
@@ -399,8 +399,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
     height: auto;
     z-index: 1;
 }
@@ -409,6 +407,7 @@ body {
     margin-right: auto;
 }
 .grid-container {
-    padding-top: 6vh;
     height: 100%;
+    padding-top: 3%;
+    padding-bottom: 3%;
 }

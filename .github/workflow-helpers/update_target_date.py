@@ -1,12 +1,24 @@
 import json
 import re
+import pytz
 from datetime import datetime
 
 def load_upcoming_event_date(file_path):
     with open(file_path, 'r') as f:
         events = json.load(f)
         now = datetime.utcnow()
-        event_dates = [datetime.fromisoformat(event['start'].get('dateTime') or event['start'].get('date')) for event in events.values()]
+        now = now.astimezone(pytz.utc)
+
+        event_dates = []
+        for event in events.values():
+            event_start = event['start'].get('dateTime') or event['start'].get('date')
+            event_timezone = event['start'].get('timeZone')
+            event_start = datetime.fromisoformat(event_start)
+            if event_timezone:
+                timezone = pytz.timezone(event_timezone)
+                event_start = event_start.astimezone(timezone)
+            event_dates.append(event_start)
+
         future_event_dates = [event_date for event_date in event_dates if event_date > now]
         upcoming_event_date = None
         if len(future_event_dates) > 0:

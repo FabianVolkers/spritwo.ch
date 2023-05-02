@@ -95,3 +95,7 @@ jobs:
         git checkout main
         git merge --no-ff --no-edit calendar-sync-update
         git push origin main
+
+    - name: Delete calendar-sync-update branch
+      run: |
+        git push origin --delete calendar-sync-update

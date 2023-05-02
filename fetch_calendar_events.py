@@ -14,7 +14,7 @@ def load_existing_events(file_path):
 def save_updated_events(file_path, existing_events, new_events):
     for new_event in new_events:
         event_id = new_event['id']
-        for key in ['attendees', 'creator', 'organizer']:
+        for key in ['attendees', 'creator', 'organizer', 'iCalUID', 'sequence', 'reminders', 'etag', 'status', 'kind', 'eventType', 'guestsCanInviteOthers', 'guestsCanSeeOtherGuests', 'recurringEventId', 'originalStartTime']:
             # Remove email addresses from event
             new_event.pop(key, None)
         existing_events[event_id] = new_event
@@ -35,6 +35,8 @@ existing_events = load_existing_events('calendar_events.json')
 
 # Get events from the Google Calendar
 now = datetime.utcnow().isoformat() + 'Z'
+# Set now to march first 2022
+now = '2022-03-01T00:00:00Z'
 events_results = calendar_service.events().list(calendarId=calendar_id,
                                                 timeMin=now,
                                                 maxResults=50,

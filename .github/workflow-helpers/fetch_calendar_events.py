@@ -14,6 +14,7 @@ def load_existing_events(file_path):
 
 
 def save_updated_events(file_path, existing_events, new_events):
+    updated_events = {}
     for new_event in new_events:
         event_id = new_event['id']
         for key in [
@@ -24,10 +25,18 @@ def save_updated_events(file_path, existing_events, new_events):
             'originalStartTime']:
             # Remove email addresses from event
             new_event.pop(key, None)
-        existing_events[event_id] = new_event
+        updated_events[event_id] = new_event
+
+    # Retain past events that are not in the new events list and are outside the requested time range
+    now = datetime.utcnow()
+    for event_id, event in existing_events.items():
+        event_start = event['start'].get('dateTime') or event['start'].get('date')
+        event_start = datetime.fromisoformat(event_start)
+        if event_id not in updated_events and event_start < now:
+            updated_events[event_id] = event
 
     with open(file_path, 'w') as f:
-        json.dump(existing_events, f, indent=2)
+        json.dump(updated_events, f, indent=2)
 
 
 # Set up Google Calendar API
@@ -44,8 +53,6 @@ existing_events = load_existing_events('.github/workflow-helpers/calendar_events
 
 # Get events from the Google Calendar
 now = datetime.utcnow().isoformat() + 'Z'
-# Set now to march first 2022
-now = '2022-03-01T00:00:00Z'
 events_results = calendar_service.events().list(calendarId=calendar_id,
                                                 timeMin=now,
                                                 maxResults=50,

@@ -58,6 +58,9 @@ body {
     border-width: 10px;
     border-style: solid; */
   box-shadow: var(--spritwoch-green-shadow) 8px 8px 0px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .wrap .split-flap {
   position: relative;

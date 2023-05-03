@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate_png:
+  check_if_updated:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -27,6 +27,16 @@ jobs:
           echo "::set-output name=skip::0"
         fi
 
+  generate_png:
+    needs: check_if_updated
+    if: ${{ needs.check_if_updated.outputs.skip == '0' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+
     - name: Set up Google Chrome
       if: ${{ steps.check_preview_updated.outputs.skip == '0' }}
       run: |
@@ -34,15 +44,18 @@ jobs:
         sudo apt-get install -y google-chrome-stable
 
     - name: Set up Node.js
+      if: ${{ steps.check_preview_updated.outputs.skip == '0' }}
       uses: actions/setup-node@v2
       with:
         node-version: 14
 
     - name: Install Puppeteer
+      if: ${{ steps.check_preview_updated.outputs.skip == '0' }}
       run: |
         npm install puppeteer
 
     - name: Generate PNG from URL
+      if: ${{ steps.check_preview_updated.outputs.skip == '0' }}
       env:
         URL: 'https://spritwo.ch/preview' #${{ secrets.SITE_URL }}
         CHROME_EXECUTABLE_PATH: 'google-chrome-stable'
@@ -50,6 +63,7 @@ jobs:
         node .github/workflow-helpers/generate_png.js
 
     - name: Create and checkout new branch
+      if: ${{ steps.check_preview_updated.outputs.skip == '0' }}
       run: |
         git checkout -b preview-image-update
 

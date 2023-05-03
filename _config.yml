@@ -55,3 +55,6 @@ plugins:
 #   - vendor/ruby/
 exclude:
   - .github/
+  - .vscode/
+  - *.code-workspace
+  - .ruby-version

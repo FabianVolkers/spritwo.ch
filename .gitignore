@@ -6,3 +6,4 @@ vendor
 .DS_Store
 venv
 service_account_key.json
+*.code-workspace

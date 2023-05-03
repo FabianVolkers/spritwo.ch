@@ -233,13 +233,6 @@ body {
   }
 }
 
-/* Pool Rules Sign */
-.sign-container {
-  display: grid;
-  /* grid-template-columns: auto auto auto; */
-  margin-top: 5vh;
-}
-
 .spritwoch-sign {
     /* display: flex; */
     justify-content: center;
@@ -261,9 +254,15 @@ body {
     border: 1px solid var(--spritwoch-red-light);
 }
 
+.sign-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .sign {
   font-family: "Lato", sans-serif;
-  margin: 5px auto auto;
+  /* margin: 5px auto auto; */
   padding: 1em;
   border: 1px solid var(--spritwoch-red-light);
   box-shadow: 5px 5px var(--spritwoch-green-shadow);

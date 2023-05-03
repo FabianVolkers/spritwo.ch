@@ -56,5 +56,5 @@ plugins:
 exclude:
   - .github/
   - .vscode/
-  - *.code-workspace
+  - spritwo.ch.code-workspace
   - .ruby-version

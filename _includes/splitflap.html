@@ -5,5 +5,6 @@
     const startString = '{{ include.start_string | default: "SPRITWOCH " }}';
     const targetDateString = '{{ page.target_date | date: "%Y-%m-%dT%H:%M:%S" | default: "2023-04-29T17:01:00" }}';
     const animate = eval('{{ include.animate | default: true }}');
+    const numberOfFlaps = eval('{{ include.number_of_flaps | default: 10 }}');
 </script>
 <script src="{{ "/assets/js/splitflap.js" | relative_url }}"></script>

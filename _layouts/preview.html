@@ -15,7 +15,8 @@ layout: default
     </div>
     <div class="preview-splitflap">
         {% capture date_string %}{{ page.target_date | | date_to_string }}{% endcapture %}
-        {% include splitflap.html start_string=date_string %}
+        {% capture animate_splitflaps %}{{false}}{% endcapture %}
+        {% include splitflap.html start_string=date_string animate=animate_splitflaps %}
     </div>
     
 </div>

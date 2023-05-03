@@ -57,3 +57,4 @@ exclude:
   - .github/
   - .vscode/
   - *.code-workspace
+  - .ruby-version

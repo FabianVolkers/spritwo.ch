@@ -44,6 +44,54 @@ body {
   width: 100%;
   margin: 0;
 }
+body::after {
+    display: block;
+    content: "";
+    position: fixed;
+    left: 0;
+    width: 100vw;
+    height: 40vh;
+    max-height: 100px;
+    background: rgba(197, 233, 252, 0.7);
+    animation: 4s tide ease-in infinite;
+  }
+  /* Bottom tile styling */
+  body::before {
+    display: block;
+    content: "";
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 30vh;
+    max-height: 170px;
+    background-color: #fde9e4;
+    background-image: linear-gradient(var(--spritwoch-red) 5px, transparent 5px),
+      linear-gradient(to right, var(--spritwoch-red) 5px, var(--spritwoch-red-light) 5px);
+    background-size: 80px 30px;
+  }
+  
+  @keyframes tide {
+    0% {
+      bottom: -5px;
+      transform: rotate(0.5deg);
+    }
+    25% {
+      bottom: -10px;
+    }
+    50% {
+      bottom: 0;
+      transform: rotate(-0.5deg);
+    }
+    75% {
+      bottom: -10px;
+    }
+    100% {
+      bottom: -5px;
+      transform: rotate(0.5deg);
+    }
+  }
+
 .countdown-container {
   display: flex;
   flex-direction: column;
@@ -333,53 +381,7 @@ body {
   line-height: 1.5;
   letter-spacing: 1px;
 }
-.sign::after {
-  display: block;
-  content: "";
-  position: fixed;
-  left: 0;
-  width: 100vw;
-  height: 40vh;
-  max-height: 100px;
-  background: rgba(197, 233, 252, 0.7);
-  animation: 4s tide ease-in infinite;
-}
-/* Bottom tile styling */
-.sign::before {
-  display: block;
-  content: "";
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  height: 30vh;
-  max-height: 170px;
-  background-color: #fde9e4;
-  background-image: linear-gradient(var(--spritwoch-red) 5px, transparent 5px),
-    linear-gradient(to right, var(--spritwoch-red) 5px, var(--spritwoch-red-light) 5px);
-  background-size: 80px 30px;
-}
 
-@keyframes tide {
-  0% {
-    bottom: -5px;
-    transform: rotate(0.5deg);
-  }
-  25% {
-    bottom: -10px;
-  }
-  50% {
-    bottom: 0;
-    transform: rotate(-0.5deg);
-  }
-  75% {
-    bottom: -10px;
-  }
-  100% {
-    bottom: -5px;
-    transform: rotate(0.5deg);
-  }
-}
 
 /* Grid Definition */
 @media screen and (min-width: 769px) {

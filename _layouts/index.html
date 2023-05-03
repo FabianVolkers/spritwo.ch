@@ -1,13 +1,6 @@
-<!-- https://www.youtube.com/watch?v=8ARBlCdq94k -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="{{ "/assets/css/styles.css" | relative_url }}">
-</head>
-<body>
+---
+layout: default
+---
   <div class="grid-container">
     <div id="top-sign" class="spritwoch-sign mobile style="grid-area: mobile-logo">
       <img src="{{ "/assets/image/SPRITWOCH_LOGO_horizontal.png" | relative_url }}" alt="Spritwoch Logo" style="object-fit: contain;">
@@ -49,5 +42,3 @@
     const targetDateString = '{{ page.target_date | date: "%Y-%m-%dT%H:%M:%S" | default: "2023-04-29T17:01:00" }}';
   </script>
   <script src="{{ "/assets/js/splitflap.js" | relative_url }}"></script>
-</body>
-</html>

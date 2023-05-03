@@ -48,7 +48,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   /* margin-top: 10vh; */
 }
 .wrap {
@@ -158,6 +157,9 @@ body {
     .mobile {
         display: flex;
     }
+    .countdown-container {
+        justify-content: center;
+      }
     /* .spritwoch-sign {
         margin-bottom: 5vh;
     } */
@@ -200,6 +202,9 @@ body {
     .desktop {
         display: flex;
     }
+    .countdown-container {
+        justify-content: flex-end;
+      }
     .sign-container {
         display: grid;
         grid-template-columns: auto auto auto;
@@ -233,13 +238,6 @@ body {
   }
 }
 
-/* Pool Rules Sign */
-.sign-container {
-  display: grid;
-  /* grid-template-columns: auto auto auto; */
-  margin-top: 5vh;
-}
-
 .spritwoch-sign {
     /* display: flex; */
     justify-content: center;
@@ -261,9 +259,15 @@ body {
     border: 1px solid var(--spritwoch-red-light);
 }
 
+.sign-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .sign {
   font-family: "Lato", sans-serif;
-  margin: 5px auto auto;
+  /* margin: 5px auto auto; */
   padding: 1em;
   border: 1px solid var(--spritwoch-red-light);
   box-shadow: 5px 5px var(--spritwoch-green-shadow);
@@ -382,10 +386,11 @@ body {
     .grid-container {
         display: grid;
         grid-template:
-            'splitflap splitflap splitflap'
-            'desktop-logo-left pool-sign desktop-logo-right'
-            'footer footer footer' auto;
-        gap: 6vh;
+            'splitflap splitflap splitflap' 1.2fr
+            'desktop-logo-left pool-sign desktop-logo-right' 1.5fr
+            'footer footer footer' 2fr;
+        gap: 5vh;
+        padding: 0;
     }
 }
     
@@ -398,6 +403,8 @@ body {
             'pool-sign' 2fr
             'footer' 3fr;
         gap: 2.5vh;
+        padding-top: 3%;
+        padding-bottom: 3%;
     }
 }
     
@@ -415,6 +422,5 @@ body {
 }
 .grid-container {
     height: 100%;
-    padding-top: 3%;
-    padding-bottom: 3%;
+
 }

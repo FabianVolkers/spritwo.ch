@@ -199,7 +199,7 @@ body::after {
 } */
 
 @media screen and /*(min-width: 481px) and */ (max-width: 768px) {
-    .desktop {
+    .desktop-sign {
         display: none;
     }
     .mobile {
@@ -247,7 +247,7 @@ body::after {
     .mobile {
         display: none;
     }
-    .desktop {
+    .desktop-sign {
         display: flex;
     }
     .countdown-container {
@@ -258,7 +258,7 @@ body::after {
         grid-template-columns: auto auto auto;
         grid-template-rows: auto;
     }
-    .spritwoch-sign img {
+    .desktop-sign img {
         max-width: 180px;
     }
     .wrap {
@@ -425,4 +425,31 @@ body::after {
 .grid-container {
     height: 100%;
 
+}
+
+.preview-grid {
+    display: grid;
+    height: 100%;
+    grid-template:
+        'spritwoch-logo' 1fr
+        'splitflap' 2fr
+        'pool-tiles' 1fr;
+}
+
+#preview-sign {
+    grid-area: spritwoch-logo;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#preview-sign img {
+    width: 80%;
+}
+
+.preview-splitflap {
+    grid-area: splitflap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

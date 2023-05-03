@@ -10,6 +10,8 @@ on:
 jobs:
   check_if_updated:
     runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.check_preview_updated.outputs.skip }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3

@@ -1,0 +1,89 @@
+name: Generate preview image
+
+on:
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  generate_png:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+
+    - name: Check if preview.markdown was updated
+      id: check_preview_updated
+      run: |
+        updated=$(git diff --name-only HEAD~1 HEAD | grep '^preview.markdown$' || true)
+        if [ -z "$updated" ]; then
+          echo "preview.markdown was not updated in the last commit."
+          echo "::set-output name=skip::1"
+        else
+          echo "::set-output name=skip::0"
+        fi
+
+    - name: Set up Google Chrome
+      if: ${{ steps.check_preview_updated.outputs.skip == '0' }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
+
+    - name: Install Puppeteer
+      run: |
+        npm install puppeteer
+
+    - name: Generate PNG from URL
+      env:
+        URL: 'https://spritwo.ch/preview' #${{ secrets.SITE_URL }}
+        CHROME_EXECUTABLE_PATH: 'google-chrome-stable'
+      run: |
+        node .github/workflow-helpers/generate_png.js
+
+    - name: Commit and push changes
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "FabianVolkers@users.noreply.github.com"
+        git add assets/image/preview-image.png
+        git commit -m "Update assets/image/preview-image" || exit 0
+        git push origin preview-image-update
+
+    - name: Create pull request
+      id: create_pr
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        response=$(curl -s -w "%{http_code}" -X POST -H "Accept: application/vnd.github+json" -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/${{ github.repository }}/pulls" -d '{"title":"Update preview-image.png with new date","head":"preview-image-update","base":"main","maintainer_can_modify": true}')
+        status_code=$(echo "$response" | tail -n1)
+        pr_data=$(echo "$response" | head -n-1)
+        if [ $status_code -ne 201 ]; then
+          echo "Failed to create pull request"
+          exit 1
+        fi
+        pr_id=$(echo "$pr_data" | jq '.number')
+        echo "::set-output name=pr_id::$pr_id"
+
+    - name: Merge pull request
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        pr_id=${{ steps.create_pr.outputs.pr_id }}
+        response=$(curl -s -w "%{http_code}" -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/${{ github.repository }}/pulls/$pr_id/merge")
+        status_code=$(echo "$response" | tail -n1)
+        if [ $status_code -ne 200 ]; then
+          echo "Failed to merge pull request"
+          exit 1
+        fi
+
+    - name: Delete preview-image-update branch
+      run: |
+        git push origin --delete preview-image-update

@@ -1,0 +1,22 @@
+---
+layout: default
+---
+<style>
+    body::before {
+        max-height: 60px;
+    }
+    body::after {
+        max-height: 40px;
+    }
+</style>
+<div class="preview-grid">
+    <div id="preview-sign" class="spritwoch-sign">
+        <img src="{{ "/assets/image/SPRITWOCH_LOGO_horizontal.png" | relative_url }}" alt="Spritwoch Logo" style="object-fit: contain;">
+    </div>
+    <div class="preview-splitflap">
+        {% capture date_string %}{{ page.target_date | | date_to_string }}{% endcapture %}
+        {% capture animate_splitflaps %}{{false}}{% endcapture %}
+        {% include splitflap.html number_of_flaps=11 start_string=date_string animate=animate_splitflaps %}
+    </div>
+    
+</div>

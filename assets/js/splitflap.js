@@ -69,8 +69,19 @@ class SplitFlap {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const NUMBER_OF_FLAPS = 10;
-  const startingString = "SPRITWOCH ";
+  console.log("Target date: " + targetDateString);
+  console.log("Start string: " + startString);
+  console.log("Animate: " + animate);
+  
+  const NUMBER_OF_FLAPS = numberOfFlaps ?? 10; // TODO: fix undefined numberOfFlaps
+  // Set width of split-flap elements
+  const margins = 0.5 * (NUMBER_OF_FLAPS + 1);
+  const splitFlapWidth = (100 -  margins)/ NUMBER_OF_FLAPS;
+
+
+
+
+  const startingString = startString || "SPRITWOCH "; // TODO: fix undefined startString
   const wrapElm = document.getElementById("wrap");
 
   let splitFlaps = [];
@@ -101,19 +112,54 @@ document.addEventListener("DOMContentLoaded", function () {
       })
     );
   }
+
+  if(NUMBER_OF_FLAPS !== 10) {
+    const stylesheet = document.styleSheets[0];
+    console.log(stylesheet)
+    const wrapSplitflapRule = [...stylesheet.cssRules].find(
+      (r) => r.selectorText === ".wrap .split-flap"
+    );
+    wrapSplitflapRule.style.width = splitFlapWidth + "%";
+    wrapSplitflapRule.style.paddingBottom = splitFlapWidth / 3 * 4 + "%";
+
+    const wrapSplitflapCardLetterRule = [...[...stylesheet.cssRules].find(
+      (r) => r.conditionText === "screen and (min-width: 769px)").cssRules].find(
+        (r) => r.selectorText === ".wrap .split-flap .card .letter"
+      );
+
+      // //*[@id="flap-0"]/div[1]/div
+      const wrapSplitflap = document.getElementById("flap-0");
+    const wrapSplitflapCardLetter = [...[...wrapSplitflap.childNodes].find(
+      (n) => n.className === "card front"
+    ).childNodes].find(
+      (n) => n.className === "letter"
+    )
+
+    fontSize = window.getComputedStyle(wrapSplitflapCardLetter).getPropertyValue('height');
+    fontSize = fontSize.substring(0, fontSize.length - 2); // remove px
+    fontSize = Math.floor(fontSize) + "px";
+    // wrapSplitflapCardLetterRule.style.fontSize = splitFlapWidth * 0.93 + "vw";
+    wrapSplitflapCardLetterRule.style.fontSize = fontSize;
+    console.log(wrapSplitflapCardLetterRule.style.fontSize)
+  }
+
   const targetDate = new Date(targetDateString);
-  setTimeout(() => {
-    let now = new Date();
-    const remainingTime = targetDate - now;
+  if(animate) {
+    setTimeout(() => {
+      let now = new Date();
+      const remainingTime = targetDate - now;
+  
+      if(remainingTime > 0) {
+        const timeString = getTimeString(remainingTime);
+  
+        animateSplitFlapsToString(timeString, splitFlaps);
+      }
+  
+      beginCountdown();
+    }, 1000);
+  }
 
-    if(remainingTime > 0) {
-      const timeString = getTimeString(remainingTime);
 
-      animateSplitFlapsToString(timeString, splitFlaps);
-    }
-
-    beginCountdown();
-  }, 1000);
 
   function beginCountdown() {
     console.log("begin countdown");

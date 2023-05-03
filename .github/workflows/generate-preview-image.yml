@@ -46,7 +46,7 @@ jobs:
       env:
         URL: https://spritwo.ch/preview #${{ secrets.SITE_URL }}
       run: |
-        node generate_png.js
+        node .github/workflow-helpers/generate_png.js
 
     - name: Commit and push changes
       run: |

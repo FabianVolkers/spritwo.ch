@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const remainingTime = targetDate - now;
 
     if(remainingTime > 0) {
-      const timeString = ` ${getTimeString(remainingTime)} `;
+      const timeString = getTimeString(remainingTime);
 
       animateSplitFlapsToString(timeString, splitFlaps);
     }
@@ -134,8 +134,12 @@ document.addEventListener("DOMContentLoaded", function () {
       // splitFlaps[0].to(" ");
       // splitFlaps[9].to(" ");
 
-      let dateStr = ` ${getTimeString(remainingTime)} `;
+      let dateStr = getTimeString(remainingTime);
       for (let i = 0; i < dateStr.length; ++i) {
+        if(i > splitFlaps.length - 1) {
+          console.log(`String too long: ${dateStr}`);
+          break;
+        }
         splitFlaps[i].to(dateStr[i]);
       }
     }, 1000);
@@ -150,6 +154,10 @@ function animateSplitFlapsToString(timeString, splitFlaps) {
   ];
 
   for (let i = 0; i < timeString.length; ++i) {
+    if(i > splitFlaps.length - 1) {
+      console.log(`String too long: ${dateStr}`);
+      break;
+    }
     let letter = timeString[i];
     let j = lettersNumbersSpecialChars.indexOf(splitFlaps[i].letter());
     while (letter !== lettersNumbersSpecialChars[j]) {
@@ -175,6 +183,8 @@ function getTimeString(milliseconds) {
   const secondsStr = String(seconds).padStart(2, "0");
 
   let dateStr = hoursStr + ":" + minutesStr + ":" + secondsStr;
+  dateStr = dateStr.padStart(9, " ");
+  dateStr = dateStr.padEnd(10, " ");
   return dateStr;
 }
 

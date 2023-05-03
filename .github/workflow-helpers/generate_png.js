@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 (async () => {
   const browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    executablePath: 'google-chrome-stable',
+    executablePath: process.env.CHROME_EXECUTABLE_PATH,
   });
   const page = await browser.newPage();
   

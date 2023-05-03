@@ -44,7 +44,8 @@ jobs:
 
     - name: Generate PNG from URL
       env:
-        URL: https://spritwo.ch/preview #${{ secrets.SITE_URL }}
+        URL: 'https://spritwo.ch/preview' #${{ secrets.SITE_URL }}
+        CHROME_EXECUTABLE_PATH: 'google-chrome-stable'
       run: |
         node .github/workflow-helpers/generate_png.js
 

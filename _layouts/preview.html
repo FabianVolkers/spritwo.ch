@@ -14,7 +14,8 @@ layout: default
         <img src="{{ "/assets/image/SPRITWOCH_LOGO_horizontal.png" | relative_url }}" alt="Spritwoch Logo" style="object-fit: contain;">
     </div>
     <div class="preview-splitflap">
-        {% include splitflap.html %}
+        {% capture date_string %}{{ page.target_date | | date_to_string }}{% endcapture %}
+        {% include splitflap.html start_string=date_string %}
     </div>
     
 </div>

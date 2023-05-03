@@ -69,8 +69,11 @@ class SplitFlap {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("Target date: " + targetDateString);
+  console.log("Start string: " + startString);
+  
   const NUMBER_OF_FLAPS = 10;
-  const startingString = "SPRITWOCH ";
+  const startingString = startString || "SPRITWOCH ";
   const wrapElm = document.getElementById("wrap");
 
   let splitFlaps = [];

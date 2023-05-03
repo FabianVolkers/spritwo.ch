@@ -2,7 +2,8 @@
     <div class="inner-shadow"></div>
 </div>
 <script>
-    const startString = '{{ include.start_string | default: "SPRITWOCH " }}'
+    const startString = '{{ include.start_string | default: "SPRITWOCH " }}';
     const targetDateString = '{{ page.target_date | date: "%Y-%m-%dT%H:%M:%S" | default: "2023-04-29T17:01:00" }}';
+    const animate = '{{ include.animate | default: true }}';
 </script>
 <script src="{{ "/assets/js/splitflap.js" | relative_url }}"></script>

@@ -71,6 +71,7 @@ class SplitFlap {
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Target date: " + targetDateString);
   console.log("Start string: " + startString);
+  console.log("Animate: " + animate);
   
   const NUMBER_OF_FLAPS = 10;
   const startingString = startString || "SPRITWOCH ";
@@ -105,18 +106,22 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
   const targetDate = new Date(targetDateString);
-  setTimeout(() => {
-    let now = new Date();
-    const remainingTime = targetDate - now;
+  if(animate) {
+    setTimeout(() => {
+      let now = new Date();
+      const remainingTime = targetDate - now;
+  
+      if(remainingTime > 0) {
+        const timeString = getTimeString(remainingTime);
+  
+        animateSplitFlapsToString(timeString, splitFlaps);
+      }
+  
+      beginCountdown();
+    }, 1000);
+  }
 
-    if(remainingTime > 0) {
-      const timeString = getTimeString(remainingTime);
 
-      animateSplitFlapsToString(timeString, splitFlaps);
-    }
-
-    beginCountdown();
-  }, 1000);
 
   function beginCountdown() {
     console.log("begin countdown");

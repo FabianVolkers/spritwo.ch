@@ -445,6 +445,7 @@ body::after {
 
 #preview-sign img {
     width: 80%;
+    box-shadow: 8px 8px var(--spritwoch-green-shadow);;
 }
 
 .preview-splitflap {

@@ -9,5 +9,7 @@
     const animate = eval('{{ include.animate | default: true }}');
     const numberOfFlaps = eval('{{ include.number_of_flaps | default: 10 }}');
     const numberOfRows = eval('{{ include.number_of_rows | default: 1 }}');
+    const eventLocation = '{{ include.event_location | default: "Campus" }}';
+
 </script>
 <script src="{{ "/assets/js/splitflap.js" | relative_url }}"></script>

@@ -74,43 +74,42 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("Animate: " + animate);
   
   const NUMBER_OF_FLAPS = numberOfFlaps ?? 10; // TODO: fix undefined numberOfFlaps
-  // Set width of split-flap elements
-
-
-
-
+  const NUMBER_OF_ROWS = numberOfRows ?? 1; // TODO: fix undefined numberOfRows
 
   const startingString = startString || "SPRITWOCH "; // TODO: fix undefined startString
   const wrapElm = document.getElementById("wrap");
 
   let splitFlaps = [];
 
-  for (let i = 0; i < NUMBER_OF_FLAPS; ++i) {
-    newFlap = document.createElement("div");
-    newFlap.classList.add("split-flap");
-    newFlap.id = "flap-" + i;
-    newFlap.innerHTML = `
-        <div class="card front">
-            <div class="letter">${startingString[i]}</div>
-        </div>
-        <div class="card back">
-            <div class="letter">${startingString[i]}</div>
-        </div>
-        <div class="card top">
-            <div class="letter">${startingString[i]}</div>
-        </div>
-        <div class="card bottom">
-            <div class="letter">${startingString[i]}</div>
-        </div>
-        `;
-    wrapElm.appendChild(newFlap);
-
-    splitFlaps.push(
-      new SplitFlap({
-        id: "flap-" + i,
-      })
-    );
-  }
+for (let row = 0; row < NUMBER_OF_ROWS; row++) {
+  // const element = array[row];
+    for (let col = 0; col < NUMBER_OF_FLAPS; ++col) {
+      newFlap = document.createElement("div");
+      newFlap.classList.add("split-flap");
+      newFlap.id = "flap-" + col;
+      newFlap.innerHTML = `
+          <div class="card front">
+              <div class="letter">${startingString[col]}</div>
+          </div>
+          <div class="card back">
+              <div class="letter">${startingString[col]}</div>
+          </div>
+          <div class="card top">
+              <div class="letter">${startingString[col]}</div>
+          </div>
+          <div class="card bottom">
+              <div class="letter">${startingString[col]}</div>
+          </div>
+          `;
+      wrapElm.appendChild(newFlap);
+  
+      splitFlaps.push(
+        new SplitFlap({
+          id: "flap-" + col,
+        })
+      );
+    }
+}
 
   if(NUMBER_OF_FLAPS !== 10) {
     resizeSplitFlaps(NUMBER_OF_FLAPS);

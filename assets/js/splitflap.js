@@ -74,15 +74,20 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("Animate: " + animate);
   
   const NUMBER_OF_FLAPS = numberOfFlaps ?? 10; // TODO: fix undefined numberOfFlaps
-  const NUMBER_OF_ROWS = numberOfRows ?? 1; // TODO: fix undefined numberOfRows
+  const NUMBER_OF_ROWS = 1 //numberOfRows ?? 1; // TODO: fix undefined numberOfRows
 
   const startingString = startString || "SPRITWOCH "; // TODO: fix undefined startString
-  const wrapElm = document.getElementById("wrap");
+  const wrapElm = document.getElementById("outer-wrap");
 
   let splitFlaps = [];
 
 for (let row = 0; row < NUMBER_OF_ROWS; row++) {
-  // const element = array[row];
+    //create wrap element
+    let newWrap = document.createElement("div");
+    newWrap.classList.add("wrap");
+    newWrap.id = "wrap-" + row;
+    // let splitFlapContainer = document.getElementById("splitflap-container");
+    wrapElm.appendChild(newWrap);
     for (let col = 0; col < NUMBER_OF_FLAPS; ++col) {
       newFlap = document.createElement("div");
       newFlap.classList.add("split-flap");
@@ -101,7 +106,7 @@ for (let row = 0; row < NUMBER_OF_ROWS; row++) {
               <div class="letter">${startingString[col]}</div>
           </div>
           `;
-      wrapElm.appendChild(newFlap);
+      newWrap.appendChild(newFlap);
   
       splitFlaps.push(
         new SplitFlap({

@@ -443,11 +443,13 @@ body::after {
 
 .preview-grid {
     display: grid;
-    height: 100%;
+    padding-top: 5vh;
+    height: 95%;
     grid-template:
         'spritwoch-logo' 1fr
         'splitflap' 2fr
         'pool-tiles' 1fr;
+    gap: 5vh
 }
 
 #preview-sign {

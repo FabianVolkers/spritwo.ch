@@ -47,10 +47,25 @@ def update_target_date_and_location(file_path, target_date, event_location):
     with open(file_path, 'w') as f:
         f.write(updated_content)
 
+def clean_string(s):
+    # Remove the leading '--5-' part
+    cleaned = re.sub(r'^--\d-', '', s)
+
+    # Remove the '(Monday only!)' text within parentheses
+    cleaned = re.sub(r'\(Monday only!\)', '', cleaned)
+
+    # Remove any digits within parentheses, including the parentheses
+    cleaned = re.sub(r'\(\d{1,3}\)', '', cleaned)
+
+    # Remove any extra whitespace
+    cleaned = cleaned.strip()
+
+    return cleaned
+
 # Load the upcoming event from calendar_events.json
 upcoming_event = load_upcoming_event('.github/workflow-helpers/calendar_events.json')
 upcoming_event["event_start"] = upcoming_event["event_start"].replace(microsecond=0).isoformat()
-
+upcoming_event["event_location"] = clean_string(upcoming_event["event_location"])
 
 # Update the target_date in index.markdown
 if upcoming_event:

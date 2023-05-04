@@ -163,6 +163,13 @@ for (let row = 0; row < NUMBER_OF_ROWS; row++) {
     }, 1000);
   }
 });
+
+window.addEventListener("resize", function () {
+  if(numberOfFlaps !== undefined) {
+    resizeSplitFlaps(numberOfFlaps);
+  }
+});
+
 function resizeSplitFlaps(NUMBER_OF_FLAPS) {
   const margins = 0.5 * (NUMBER_OF_FLAPS + 1);
   const splitFlapWidth = (100 -  margins)/ NUMBER_OF_FLAPS;

@@ -72,75 +72,57 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("Target date: " + targetDateString);
   console.log("Start string: " + startString);
   console.log("Animate: " + animate);
+  console.log("Event Location: " + eventLocation);
+
+  rows = setRows(startString, eventLocation);
   
   const NUMBER_OF_FLAPS = numberOfFlaps ?? 10; // TODO: fix undefined numberOfFlaps
-  // Set width of split-flap elements
-  const margins = 0.5 * (NUMBER_OF_FLAPS + 1);
-  const splitFlapWidth = (100 -  margins)/ NUMBER_OF_FLAPS;
-
-
-
+  const NUMBER_OF_ROWS = numberOfRows ?? 1; // TODO: fix undefined numberOfRows
 
   const startingString = startString || "SPRITWOCH "; // TODO: fix undefined startString
-  const wrapElm = document.getElementById("wrap");
+  const wrapElm = document.getElementById("outer-wrap");
 
   let splitFlaps = [];
 
-  for (let i = 0; i < NUMBER_OF_FLAPS; ++i) {
-    newFlap = document.createElement("div");
-    newFlap.classList.add("split-flap");
-    newFlap.id = "flap-" + i;
-    newFlap.innerHTML = `
-        <div class="card front">
-            <div class="letter">${startingString[i]}</div>
-        </div>
-        <div class="card back">
-            <div class="letter">${startingString[i]}</div>
-        </div>
-        <div class="card top">
-            <div class="letter">${startingString[i]}</div>
-        </div>
-        <div class="card bottom">
-            <div class="letter">${startingString[i]}</div>
-        </div>
-        `;
-    wrapElm.appendChild(newFlap);
+for (let row = 0; row < Math.min(NUMBER_OF_ROWS, rows.length); row++) {
+    //create wrap element
+    let newWrap = document.createElement("div");
+    newWrap.classList.add("wrap");
+    newWrap.id = "wrap-" + row;
+    wrapElm.appendChild(newWrap);
 
-    splitFlaps.push(
-      new SplitFlap({
-        id: "flap-" + i,
-      })
-    );
-  }
+    let string = rows[row].string;
+
+    for (let col = 0; col < NUMBER_OF_FLAPS; ++col) {
+      newFlap = document.createElement("div");
+      newFlap.classList.add("split-flap");
+      newFlap.id = `flap-${row}-${col}`;
+      newFlap.innerHTML = `
+          <div class="card front">
+              <div class="letter">${string[col] ?? " "}</div>
+          </div>
+          <div class="card back">
+              <div class="letter">${string[col] ?? " "}</div>
+          </div>
+          <div class="card top">
+              <div class="letter">${string[col] ?? " "}</div>
+          </div>
+          <div class="card bottom">
+              <div class="letter">${string[col] ?? " "}</div>
+          </div>
+          `;
+      newWrap.appendChild(newFlap);
+  
+      splitFlaps.push(
+        new SplitFlap({
+          id: `flap-${row}-${col}`,
+        })
+      );
+    }
+}
 
   if(NUMBER_OF_FLAPS !== 10) {
-    const stylesheet = document.styleSheets[0];
-    console.log(stylesheet)
-    const wrapSplitflapRule = [...stylesheet.cssRules].find(
-      (r) => r.selectorText === ".wrap .split-flap"
-    );
-    wrapSplitflapRule.style.width = splitFlapWidth + "%";
-    wrapSplitflapRule.style.paddingBottom = splitFlapWidth / 3 * 4 + "%";
-
-    const wrapSplitflapCardLetterRule = [...[...stylesheet.cssRules].find(
-      (r) => r.conditionText === "screen and (min-width: 769px)").cssRules].find(
-        (r) => r.selectorText === ".wrap .split-flap .card .letter"
-      );
-
-      // //*[@id="flap-0"]/div[1]/div
-      const wrapSplitflap = document.getElementById("flap-0");
-    const wrapSplitflapCardLetter = [...[...wrapSplitflap.childNodes].find(
-      (n) => n.className === "card front"
-    ).childNodes].find(
-      (n) => n.className === "letter"
-    )
-
-    fontSize = window.getComputedStyle(wrapSplitflapCardLetter).getPropertyValue('height');
-    fontSize = fontSize.substring(0, fontSize.length - 2); // remove px
-    fontSize = Math.floor(fontSize) + "px";
-    // wrapSplitflapCardLetterRule.style.fontSize = splitFlapWidth * 0.93 + "vw";
-    wrapSplitflapCardLetterRule.style.fontSize = fontSize;
-    console.log(wrapSplitflapCardLetterRule.style.fontSize)
+    resizeSplitFlaps(NUMBER_OF_FLAPS);
   }
 
   const targetDate = new Date(targetDateString);
@@ -191,6 +173,43 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 1000);
   }
 });
+
+window.addEventListener("resize", function () {
+  if(numberOfFlaps !== undefined) {
+    resizeSplitFlaps(numberOfFlaps);
+  }
+});
+
+function resizeSplitFlaps(NUMBER_OF_FLAPS) {
+  const margins = 0.5 * (NUMBER_OF_FLAPS + 1);
+  const splitFlapWidth = (100 -  margins)/ NUMBER_OF_FLAPS;
+  const stylesheet = document.styleSheets[0];
+  console.log(stylesheet);
+  const wrapSplitflapRule = [...stylesheet.cssRules].find(
+    (r) => r.selectorText === ".wrap .split-flap"
+  );
+  wrapSplitflapRule.style.width = splitFlapWidth + "%";
+  wrapSplitflapRule.style.paddingBottom = splitFlapWidth / 3 * 4 + "%";
+
+  const wrapSplitflapCardLetterRule = [...[...stylesheet.cssRules].find(
+    (r) => r.conditionText === "screen and (min-width: 769px)").cssRules].find(
+      (r) => r.selectorText === ".wrap .split-flap .card .letter"
+    );
+
+  const wrapSplitflap = document.getElementById("flap-0-0");
+  const wrapSplitflapCardLetter = [...[...wrapSplitflap.childNodes].find(
+    (n) => n.className === "card front"
+  ).childNodes].find(
+    (n) => n.className === "letter"
+  );
+
+  fontSize = window.getComputedStyle(wrapSplitflapCardLetter).getPropertyValue('height');
+  fontSize = fontSize.substring(0, fontSize.length - 2); // remove px
+  fontSize = Math.floor(fontSize) + "px";
+  wrapSplitflapCardLetterRule.style.fontSize = fontSize;
+  console.log(wrapSplitflapCardLetterRule.style.fontSize);
+}
+
 function animateSplitFlapsToString(timeString, splitFlaps) {
   console.log("Animate to: " + timeString);
   const lettersNumbersSpecialChars = [
@@ -234,3 +253,69 @@ function getTimeString(milliseconds) {
   return dateStr;
 }
 
+function setRows(dateStr, eventLocation=null) {
+  rows = []
+  rows.push({
+    string: dateStr,
+    animate: true,
+  });
+
+  if (eventLocation !== null) {
+    rows.push({
+      string: "",
+      animate: false,
+    });
+
+    const words = eventLocation.split(" ");
+    const segments = splitWords(words);
+
+    for (let i = 0; i < segments.length; ++i) {
+      const segment = segments[i];
+
+      rows.push({
+        string: i === 0 ? `@${segment}` : ` ${segment}`,
+        animate: false,
+      });
+    }
+}
+
+  return rows;
+}
+
+function splitWords(words) {
+  const maxLength = 10;
+  let segments = [];
+  let currentSegment = '';
+
+  for(let i = 0; i < words.length -1; ++i) {
+    words[i] += " ";
+  }
+
+  for (const word of words) {
+    if (currentSegment.length + word.length <= maxLength) {
+      currentSegment += word;
+    } else {
+      if (word.length > maxLength) {
+        const remainingSpace = maxLength - currentSegment.length;
+        currentSegment += word.slice(0, remainingSpace);
+        segments.push(currentSegment);
+        let remainingWord = word.slice(remainingSpace);
+
+        while (remainingWord.length > maxLength) {
+          segments.push(remainingWord.slice(0, maxLength));
+          remainingWord = remainingWord.slice(maxLength);
+        }
+        currentSegment = remainingWord;
+      } else {
+        segments.push(currentSegment);
+        currentSegment = word;
+      }
+    }
+  }
+
+  if (currentSegment.length > 0) {
+    segments.push(currentSegment);
+  }
+
+  return segments;
+}

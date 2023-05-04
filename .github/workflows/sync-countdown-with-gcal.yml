@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      json_updated: ${{ steps.commit_changes.outputs.json_updated }}
+      json_updated: ${{ steps.check_json.outputs.json_updated }}
 
     steps:
     - name: Checkout repository
@@ -42,21 +42,29 @@ jobs:
         echo "$GOOGLE_SERVICE_ACCOUNT_KEY" > service_account_key.json
         python .github/workflow-helpers/fetch_calendar_events.py
 
+    - name: Check if JSON has changed
+      id: check_json
+      run: |
+        git diff --quiet .github/workflow-helpers/calendar_events.json
+        JSON_UPDATED=$?
+        echo "::set-output name=json_updated::$JSON_UPDATED"
+
     - name: Commit and push changes
+      if: ${{ steps.check_json.outputs.json_updated == '1' }}
       id: commit_changes
       run: |
         git config user.name "GitHub Actions Bot"
         git config user.email "FabianVolkers@users.noreply.github.com"
         git add .github/workflow-helpers/calendar_events.json
         git commit -m "Update calendar_events.json with latest events"
-        JSON_UPDATED=$?
-        echo "::set-output name=json_updated::$JSON_UPDATED"
         git push origin calendar-sync-update || exit 0
 
   update_target_date:
-    if: ${{ needs.sync.outputs.json_updated == '0' }}
+    if: ${{ needs.sync.outputs.json_updated == '1' }}
     needs: sync
     runs-on: ubuntu-latest
+    outputs:
+      target_date_updated: ${{ steps.check_target_date.outputs.target_date_updated }}
 
     steps:
     - name: Checkout repository
@@ -82,7 +90,15 @@ jobs:
       run: |
         python .github/workflow-helpers/update_target_date.py
 
+    - name: Check if target_date has changed
+      id: check_target_date
+      run: |
+        git diff --quiet index.markdown
+        TARGET_DATE_UPDATED=$?
+        echo "::set-output name=target_date_updated::$TARGET_DATE_UPDATED"
+
     - name: Commit and push changes
+      if: ${{ steps.check_target_date.outputs.target_date_updated == '1' }}
       run: |
         git config user.name "GitHub Actions Bot"
         git config user.email "FabianVolkers@users.noreply.github.com"
@@ -91,6 +107,7 @@ jobs:
         git push origin calendar-sync-update
 
     - name: Create pull request
+      if: ${{ steps.check_target_date.outputs.target_date_updated == '1' }}
       id: create_pr
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -106,6 +123,8 @@ jobs:
         echo "::set-output name=pr_id::$pr_id"
 
     - name: Merge pull request
+      if: ${{ steps.create_pr.outputs.pr_id != null }}}
+      id: merge_pr
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
@@ -116,8 +135,10 @@ jobs:
           echo "Failed to merge pull request"
           exit 1
         fi
+        echo "::set-output name=merge_status::$status_code"
 
     - name: Delete calendar-sync-update branch
+      if: ${{ steps.merge_pr.outputs.merge_status == 200 }}
       run: |
         git push origin --delete calendar-sync-update
 

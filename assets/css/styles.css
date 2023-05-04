@@ -443,13 +443,13 @@ body::after {
 
 .preview-grid {
     display: grid;
-    padding-top: 5vh;
-    height: 95%;
+    padding-top: 4vh;
+    height: 96%;
     grid-template:
         'spritwoch-logo' 1fr
         'splitflap' 2fr
-        'pool-tiles' 1fr;
-    gap: 5vh
+        'pool-tiles' 0.5fr;
+    gap: 4.5vh
 }
 
 #preview-sign {
@@ -461,7 +461,8 @@ body::after {
 
 #preview-sign img {
     width: 80%;
-    box-shadow: 8px 8px var(--spritwoch-green-shadow);;
+    box-shadow: 8px 8px var(--spritwoch-green-shadow);
+    padding: 10px;
 }
 
 .preview-splitflap {
@@ -469,4 +470,5 @@ body::after {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 5vw;
 }

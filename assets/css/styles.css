@@ -103,6 +103,7 @@ body::after {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   padding: 0.5em 1em;
   box-shadow: var(--spritwoch-green-shadow) 8px 8px 0px 0px;
 }

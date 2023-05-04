@@ -10,8 +10,6 @@ on:
 jobs:
   check_if_updated:
     runs-on: ubuntu-latest
-    outputs:
-      skip: ${{ steps.check_preview_updated.outputs.skip }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -24,14 +22,14 @@ jobs:
         updated=$(git diff --name-only HEAD~1 HEAD | grep '^preview.markdown$' || true)
         if [ -z "$updated" ]; then
           echo "preview.markdown was not updated in the last commit."
-          echo "::set-output name=skip::1"
+          echo "skip_generate=1" >> "$GITHUB_ENV"
         else
-          echo "::set-output name=skip::0"
+          echo "skip_generate=0" >> "$GITHUB_ENV"
         fi
 
   generate_png:
     needs: check_if_updated
-    if: ${{ needs.check_if_updated.outputs.skip == '0' }}
+    if: ${{ env.skip_generate == '0' }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -40,24 +38,24 @@ jobs:
         token: ${{ secrets.GH_TOKEN }}
 
     - name: Set up Google Chrome
-      if: ${{ steps.check_preview_updated.outputs.skip == '0' }}
+      if: ${{ env.skip_generate == '0' }}
       run: |
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
 
     - name: Set up Node.js
-      if: ${{ steps.check_preview_updated.outputs.skip == '0' }}
+      if: ${{ env.skip_generate == '0' }}
       uses: actions/setup-node@v2
       with:
         node-version: 14
 
     - name: Install Puppeteer
-      if: ${{ steps.check_preview_updated.outputs.skip == '0' }}
+      if: ${{ env.skip_generate == '0' }}
       run: |
         npm install puppeteer
 
     - name: Generate PNG from URL
-      if: ${{ steps.check_preview_updated.outputs.skip == '0' }}
+      if: ${{ env.skip_generate == '0' }}
       env:
         URL: 'https://spritwo.ch/preview' #${{ secrets.SITE_URL }}
         CHROME_EXECUTABLE_PATH: 'google-chrome-stable'
@@ -65,7 +63,7 @@ jobs:
         node .github/workflow-helpers/generate_png.js
 
     - name: Create and checkout new branch
-      if: ${{ steps.check_preview_updated.outputs.skip == '0' }}
+      if: ${{ env.skip_generate == '0' }}
       run: |
         git checkout -b preview-image-update
 
@@ -90,13 +88,13 @@ jobs:
           exit 1
         fi
         pr_id=$(echo "$pr_data" | jq '.number')
-        echo "::set-output name=pr_id::$pr_id"
+        echo "pr_id=$pr_id" >> "$GITHUB_ENV"
 
     - name: Merge pull request
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
-        pr_id=${{ steps.create_pr.outputs.pr_id }}
+        pr_id=${{ env.pr_id }}
         response=$(curl -s -w "%{http_code}" -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/${{ github.repository }}/pulls/$pr_id/merge")
         status_code=$(echo "$response" | tail -n1)
         if [ $status_code -ne 200 ]; then

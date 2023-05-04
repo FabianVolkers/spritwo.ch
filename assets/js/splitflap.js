@@ -72,38 +72,43 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("Target date: " + targetDateString);
   console.log("Start string: " + startString);
   console.log("Animate: " + animate);
+  console.log("Event Location: " + eventLocation);
+
+  rows = setRows(startString, eventLocation);
   
   const NUMBER_OF_FLAPS = numberOfFlaps ?? 10; // TODO: fix undefined numberOfFlaps
-  const NUMBER_OF_ROWS = 1 //numberOfRows ?? 1; // TODO: fix undefined numberOfRows
+  const NUMBER_OF_ROWS = numberOfRows ?? 1; // TODO: fix undefined numberOfRows
 
   const startingString = startString || "SPRITWOCH "; // TODO: fix undefined startString
   const wrapElm = document.getElementById("outer-wrap");
 
   let splitFlaps = [];
 
-for (let row = 0; row < NUMBER_OF_ROWS; row++) {
+for (let row = 0; row < Math.min(NUMBER_OF_ROWS, rows.length); row++) {
     //create wrap element
     let newWrap = document.createElement("div");
     newWrap.classList.add("wrap");
     newWrap.id = "wrap-" + row;
-    // let splitFlapContainer = document.getElementById("splitflap-container");
     wrapElm.appendChild(newWrap);
+
+    let string = rows[row].string;
+
     for (let col = 0; col < NUMBER_OF_FLAPS; ++col) {
       newFlap = document.createElement("div");
       newFlap.classList.add("split-flap");
       newFlap.id = "flap-" + col;
       newFlap.innerHTML = `
           <div class="card front">
-              <div class="letter">${startingString[col]}</div>
+              <div class="letter">${string[col] ?? " "}</div>
           </div>
           <div class="card back">
-              <div class="letter">${startingString[col]}</div>
+              <div class="letter">${string[col] ?? " "}</div>
           </div>
           <div class="card top">
-              <div class="letter">${startingString[col]}</div>
+              <div class="letter">${string[col] ?? " "}</div>
           </div>
           <div class="card bottom">
-              <div class="letter">${startingString[col]}</div>
+              <div class="letter">${string[col] ?? " "}</div>
           </div>
           `;
       newWrap.appendChild(newFlap);
@@ -248,3 +253,69 @@ function getTimeString(milliseconds) {
   return dateStr;
 }
 
+function setRows(dateStr, eventLocation=null) {
+  rows = []
+  rows.push({
+    string: dateStr,
+    animate: true,
+  });
+
+  if (eventLocation !== null) {
+    rows.push({
+      string: "",
+      animate: false,
+    });
+
+    const words = eventLocation.split(" ");
+    const segments = splitWords(words);
+
+    for (let i = 0; i < segments.length; ++i) {
+      const segment = segments[i];
+
+      rows.push({
+        string: i === 0 ? `@${segment}` : ` ${segment}`,
+        animate: false,
+      });
+    }
+}
+
+  return rows;
+}
+
+function splitWords(words) {
+  const maxLength = 10;
+  let segments = [];
+  let currentSegment = '';
+
+  for(let i = 0; i < words.length -1; ++i) {
+    words[i] += " ";
+  }
+
+  for (const word of words) {
+    if (currentSegment.length + word.length <= maxLength) {
+      currentSegment += word;
+    } else {
+      if (word.length > maxLength) {
+        const remainingSpace = maxLength - currentSegment.length;
+        currentSegment += word.slice(0, remainingSpace);
+        segments.push(currentSegment);
+        let remainingWord = word.slice(remainingSpace);
+
+        while (remainingWord.length > maxLength) {
+          segments.push(remainingWord.slice(0, maxLength));
+          remainingWord = remainingWord.slice(maxLength);
+        }
+        currentSegment = remainingWord;
+      } else {
+        segments.push(currentSegment);
+        currentSegment = word;
+      }
+    }
+  }
+
+  if (currentSegment.length > 0) {
+    segments.push(currentSegment);
+  }
+
+  return segments;
+}

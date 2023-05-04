@@ -8,7 +8,8 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
-
+    outputs:
+      json_updated: ${{ steps.check_json.outputs.json_updated }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -44,10 +45,10 @@ jobs:
       run: |
         git diff --quiet .github/workflow-helpers/calendar_events.json
         JSON_UPDATED=$?
-        echo "json_updated=$JSON_UPDATED" >> "$GITHUB_ENV"
+        echo "json_updated=$JSON_UPDATED" >> "$GITHUB_OUTPUT"
 
     - name: Commit and push changes
-      if: ${{ env.json_updated == '1' }}
+      if: ${{ steps.check_json.outputs.json_updated == '1' }}
       id: commit_changes
       run: |
         git config user.name "GitHub Actions Bot"
@@ -57,7 +58,7 @@ jobs:
         git push origin calendar-sync-update || exit 0
 
   update_target_date:
-    if: ${{ env.json_updated == '1' }}
+    if: ${{ needs.sync.outputs.json_updated == '1' }}
     needs: sync
     runs-on: ubuntu-latest
 
@@ -90,10 +91,10 @@ jobs:
       run: |
         git diff --quiet index.markdown
         TARGET_DATE_UPDATED=$?
-        echo "target_date_updated=$TARGET_DATE_UPDATED" >> "$GITHUB_ENV"
+        echo "target_date_updated=$TARGET_DATE_UPDATED" >> "$GITHUB_OUTPUT"
 
     - name: Commit and push changes
-      if: ${{ env.target_date_updated == '1' }}
+      if: ${{ steps.check_target_date.outputs.target_date_updated == '1' }}
       run: |
         git config user.name "GitHub Actions Bot"
         git config user.email "FabianVolkers@users.noreply.github.com"
@@ -102,7 +103,7 @@ jobs:
         git push origin calendar-sync-update
 
     - name: Create pull request
-      if: ${{ env.target_date_updated == '1' }}
+      if: ${{ steps.check_target_date.outputs.target_date_updated == '1' }}
       id: create_pr
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -115,25 +116,25 @@ jobs:
           exit 1
         fi
         pr_id=$(echo "$pr_data" | jq '.number')
-        echo "pr_id=$pr_id" >> "$GITHUB_ENV
+        echo "pr_id=$pr_id" >> "$GITHUB_OUTPUT"
 
     - name: Merge pull request
-      if: ${{ env.pr_id != null }}}
+      if: ${{ steps.create_pr.outputs.pr_id != null }}}
       id: merge_pr
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
-        pr_id=${{ env.pr_id }}
+        pr_id=${{ steps.create_pr.outputs.pr_id }}
         response=$(curl -s -w "%{http_code}" -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/${{ github.repository }}/pulls/$pr_id/merge")
         status_code=$(echo "$response" | tail -n1)
         if [ $status_code -ne 200 ]; then
           echo "Failed to merge pull request"
           exit 1
         fi
-        echo "merge_status=$status_code" >> "$GITHUB_ENV
+        echo "merge_status=$status_code" >> "$GITHUB_OUTPUT"
 
     - name: Delete calendar-sync-update branch
-      if: ${{ env.merge_status == 200 }}
+      if: ${{ steps.merge_pr.outputs.merge_status == 200 }}
       run: |
         git push origin --delete calendar-sync-update
 

@@ -96,7 +96,7 @@ for (let row = 0; row < Math.min(NUMBER_OF_ROWS, rows.length); row++) {
     for (let col = 0; col < NUMBER_OF_FLAPS; ++col) {
       newFlap = document.createElement("div");
       newFlap.classList.add("split-flap");
-      newFlap.id = "flap-" + col;
+      newFlap.id = `flap-${row}-${col}`;
       newFlap.innerHTML = `
           <div class="card front">
               <div class="letter">${string[col] ?? " "}</div>
@@ -115,7 +115,7 @@ for (let row = 0; row < Math.min(NUMBER_OF_ROWS, rows.length); row++) {
   
       splitFlaps.push(
         new SplitFlap({
-          id: "flap-" + col,
+          id: `flap-${row}-${col}`,
         })
       );
     }
@@ -196,7 +196,7 @@ function resizeSplitFlaps(NUMBER_OF_FLAPS) {
       (r) => r.selectorText === ".wrap .split-flap .card .letter"
     );
 
-  const wrapSplitflap = document.getElementById("flap-0");
+  const wrapSplitflap = document.getElementById("flap-0-0");
   const wrapSplitflapCardLetter = [...[...wrapSplitflap.childNodes].find(
     (n) => n.className === "card front"
   ).childNodes].find(

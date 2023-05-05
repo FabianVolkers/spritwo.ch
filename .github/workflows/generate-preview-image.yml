@@ -21,7 +21,7 @@ jobs:
     - name: Check if preview.markdown was updated
       id: check_preview_updated
       run: |
-        updated=$(git diff --name-only HEAD~1 HEAD | grep '^preview.markdown$' || true)
+        updated=$(git diff --name-only HEAD~1 HEAD -- preview.markdown | grep '^preview.markdown$' || true)
         if [ -z "$updated" ]; then
           echo "preview.markdown was not updated in the last commit."
           echo "skip_generate=1" >> "$GITHUB_OUTPUT"

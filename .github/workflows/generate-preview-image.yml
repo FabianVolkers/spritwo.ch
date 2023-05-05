@@ -17,6 +17,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         token: ${{ secrets.GH_TOKEN }}
+        fetch-depth: 2
 
     - name: Check if preview.markdown was updated
       id: check_preview_updated

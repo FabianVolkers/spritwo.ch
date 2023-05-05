@@ -74,7 +74,25 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("Animate: " + animate);
   console.log("Event Location: " + eventLocation);
 
-  rows = setRows(startString, eventLocation);
+  const targetDate = new Date(targetDateString);
+
+  let rows;
+  if(numberOfRows === 1) {
+    rows = setRows(startString);
+  } else {
+    // TODO: extract method setPreviewRows
+    if(window.location.pathname === "/preview") {
+      // targetDate to string with fromat DD MMM YYYY
+      const dateStr = targetDate.toLocaleDateString([], { day: '2-digit', month: 'short', year: 'numeric' });
+      // targetDate to string with fromat HH:MM
+      const timeString = targetDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      rows = setRows(dateStr, timeString, eventLocation);
+    } else {
+      console.log("Multiple rows not yet supported for this page");
+    }
+  }
+
+  
   
   const NUMBER_OF_FLAPS = numberOfFlaps ?? 10; // TODO: fix undefined numberOfFlaps
   const NUMBER_OF_ROWS = numberOfRows ?? 1; // TODO: fix undefined numberOfRows
@@ -125,7 +143,6 @@ for (let row = 0; row < Math.min(NUMBER_OF_ROWS, rows.length); row++) {
     resizeSplitFlaps(NUMBER_OF_FLAPS);
   }
 
-  const targetDate = new Date(targetDateString);
   if(animate) {
     setTimeout(() => {
       let now = new Date();
@@ -253,16 +270,16 @@ function getTimeString(milliseconds) {
   return dateStr;
 }
 
-function setRows(dateStr, eventLocation=null) {
+function setRows(dateStr, timeStr=null, eventLocation=null) {
   rows = []
   rows.push({
     string: dateStr,
     animate: true,
   });
 
-  if (eventLocation !== null) {
+  if (timeStr !== null && eventLocation !== null) {
     rows.push({
-      string: "",
+      string: timeStr,
       animate: false,
     });
 

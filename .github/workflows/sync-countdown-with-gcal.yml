@@ -2,8 +2,10 @@ name: Google Calendar Sync and Update Target Date
 
 on:
   schedule:
-    - cron: '0 * * * *' # Run every hour
+    - cron: '0 0 * * *' # Run every day
   workflow_dispatch:
+  repository_dispatch:
+    types: [calendar-update]
 
 jobs:
   sync:

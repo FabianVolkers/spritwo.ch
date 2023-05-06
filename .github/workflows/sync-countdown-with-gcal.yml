@@ -95,9 +95,13 @@ jobs:
     - name: Check if target_date has changed
       id: check_target_date
       run: |
-        git diff --quiet index.markdown
-        TARGET_DATE_UPDATED=$?
-        echo "target_date_updated=$TARGET_DATE_UPDATED" >> "$GITHUB_OUTPUT"
+        updated=$(git diff --name-only -- index.markdown | grep index.markdown || true)
+        if [ -z "$updated" ]; then
+          echo "index.markdown was not updated in the last commit."
+          echo "target_date_updated=0" >> "$GITHUB_OUTPUT"
+        else
+          echo "target_date_updated=1" >> "$GITHUB_OUTPUT"
+        fi
 
     - name: Commit and push changes
       if: ${{ steps.check_target_date.outputs.target_date_updated == '1' }}

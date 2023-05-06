@@ -2,8 +2,10 @@ name: Google Calendar Sync and Update Target Date
 
 on:
   schedule:
-    - cron: '0 * * * *' # Run every hour
+    - cron: '0 0 * * *' # Run every day
   workflow_dispatch:
+  repository_dispatch:
+    types: [calendar-update]
 
 jobs:
   sync:
@@ -43,9 +45,13 @@ jobs:
     - name: Check if JSON has changed
       id: check_json
       run: |
-        git diff --quiet .github/workflow-helpers/calendar_events.json
-        JSON_UPDATED=$?
-        echo "json_updated=$JSON_UPDATED" >> "$GITHUB_OUTPUT"
+        updated=$(git diff --name-only -- .github/workflow-helpers/calendar_events.json | grep .github/workflow-helpers/calendar_events.json || true)
+        if [ -z "$updated" ]; then
+          echo "calendar_events.json was not updated in the last commit."
+          echo "json_updated=0" >> "$GITHUB_OUTPUT"
+        else
+          echo "json_updated=1" >> "$GITHUB_OUTPUT"
+        fi
 
     - name: Commit and push changes
       if: ${{ steps.check_json.outputs.json_updated == '1' }}

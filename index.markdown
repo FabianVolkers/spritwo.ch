@@ -3,6 +3,6 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: index
-target_date: 2023-04-05T18:00:00+02:00
-event_location: Heaven
+target_date: 2023-05-10T20:30:00+02:00
+event_location: Campus
 ---

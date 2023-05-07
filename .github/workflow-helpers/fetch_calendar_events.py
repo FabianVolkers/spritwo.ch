@@ -56,7 +56,8 @@ creds = service_account.Credentials.from_service_account_file(
 calendar_service = build('calendar', 'v3', credentials=creds)
 
 # Load existing events from the JSON file
-existing_events = load_existing_events('.github/workflow-helpers/calendar_events.json')
+file_path = os.environ["EVENTS_JSON_FILE"]
+existing_events = load_existing_events(file_path)
 
 # Get events from the Google Calendar
 now = datetime.utcnow().isoformat() + 'Z'
@@ -68,4 +69,4 @@ events_results = calendar_service.events().list(calendarId=calendar_id,
 
 # Update existing events with new or changed events
 new_events = events_results.get('items', [])
-save_updated_events('.github/workflow-helpers/calendar_events.json', existing_events, new_events)
+save_updated_events(file_path, existing_events, new_events)

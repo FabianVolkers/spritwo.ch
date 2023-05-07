@@ -13,6 +13,6 @@ const puppeteer = require('puppeteer');
   await page.setViewport({ width, height });
 
   await page.goto(process.env.URL, { waitUntil: 'networkidle2' });
-  await page.screenshot({ path: 'assets/image/preview-image.png', fullPage: false });
+  await page.screenshot({ path: process.env.PREVIEW_IMAGE_FILE, fullPage: false });
   await browser.close();
 })();

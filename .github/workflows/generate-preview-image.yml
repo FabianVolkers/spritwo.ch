@@ -7,6 +7,10 @@ on:
       - completed
   workflow_dispatch:
 
+env:
+  PREVIEW_MARKDOWN_FILE: preview.markdown
+  PREVIEW_IMAGE_FILE: assets/image/preview-image.png
+
 jobs:
   check_if_updated:
     runs-on: ubuntu-latest
@@ -19,12 +23,12 @@ jobs:
         token: ${{ secrets.GH_TOKEN }}
         fetch-depth: 2
 
-    - name: Check if preview.markdown was updated
+    - name: Check if $PREVIEW_MARKDOWN_FILE were updated
       id: check_preview_updated
       run: |
-        updated=$(git diff --name-only HEAD~1 HEAD -- preview.markdown | grep '^preview.markdown$' || true)
+        updated=$(git diff --name-only HEAD~1 HEAD -- $PREVIEW_MARKDOWN_FILE | grep $PREVIEW_MARKDOWN_FILE || true)
         if [ -z "$updated" ]; then
-          echo "preview.markdown was not updated in the last commit."
+          echo "$PREVIEW_MARKDOWN_FILE was not updated in the last commit."
           echo "skip_generate=1" >> "$GITHUB_OUTPUT"
         else
           echo "skip_generate=0" >> "$GITHUB_OUTPUT"
@@ -74,8 +78,8 @@ jobs:
       run: |
         git config user.name "GitHub Actions Bot"
         git config user.email "FabianVolkers@users.noreply.github.com"
-        git add assets/image/preview-image.png
-        git commit -m "Update assets/image/preview-image" || exit 0
+        git add $PREVIEW_IMAGE_FILE
+        git commit -m "Update $PREVIEW_IMAGE_FILE" || exit 0
         git push origin preview-image-update
 
     - name: Create pull request

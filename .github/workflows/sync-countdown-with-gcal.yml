@@ -7,6 +7,10 @@ on:
   repository_dispatch:
     types: [calendar-update]
 
+env:
+  EVENTS_JSON_FILE: .github/workflow-helpers/calendar_events.json
+  TARGET_MARKDOWN_FILES: "index.markdown preview.markdown"
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -45,9 +49,9 @@ jobs:
     - name: Check if JSON has changed
       id: check_json
       run: |
-        updated=$(git diff --name-only -- .github/workflow-helpers/calendar_events.json | grep .github/workflow-helpers/calendar_events.json || true)
+        updated=$(git diff --name-only -- $EVENTS_JSON_FILE | grep $EVENTS_JSON_FILE || true)
         if [ -z "$updated" ]; then
-          echo "calendar_events.json was not updated in the last commit."
+          echo "$EVENTS_JSON_FILE was not updated in the last commit."
           echo "json_updated=0" >> "$GITHUB_OUTPUT"
         else
           echo "json_updated=1" >> "$GITHUB_OUTPUT"
@@ -59,7 +63,7 @@ jobs:
       run: |
         git config user.name "GitHub Actions Bot"
         git config user.email "FabianVolkers@users.noreply.github.com"
-        git add .github/workflow-helpers/calendar_events.json
+        git add $EVENTS_JSON_FILE
         git commit -m "Update calendar_events.json with latest events"
         git push origin calendar-sync-update || exit 0
 

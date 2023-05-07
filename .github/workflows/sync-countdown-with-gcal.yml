@@ -99,9 +99,10 @@ jobs:
     - name: Check if target_date has changed
       id: check_target_date
       run: |
-        updated=$(git diff --name-only -- index.markdown | grep index.markdown || true)
+        target_files_regex=$(echo "${TARGET_MARKDOWN_FILES// /|}")
+        updated=$(git diff --name-only -- $TARGET_MARKDOWN_FILES | grep -E $target_files_regex || true)
         if [ -z "$updated" ]; then
-          echo "index.markdown was not updated in the last commit."
+          echo "$TARGET_MARKDOWN_FILES were not updated in the last commit."
           echo "target_date_updated=0" >> "$GITHUB_OUTPUT"
         else
           echo "target_date_updated=1" >> "$GITHUB_OUTPUT"
@@ -112,8 +113,8 @@ jobs:
       run: |
         git config user.name "GitHub Actions Bot"
         git config user.email "FabianVolkers@users.noreply.github.com"
-        git add index.markdown
-        git commit -m "Update target_date in index.markdown" || exit 0
+        git add $TARGET_MARKDOWN_FILES
+        git commit -m "Update target_date in $TARGET_MARKDOWN_FILES" || exit 0
         git push origin calendar-sync-update
 
     - name: Create pull request

@@ -1,6 +1,7 @@
 import json
 import re
 import pytz
+import os
 from datetime import datetime
 
 def load_upcoming_event(file_path):
@@ -64,14 +65,18 @@ def clean_string(s):
 
     return cleaned
 
+# Load env vars
+events_json_file = os.environ["EVENTS_JSON_FILE"]
+target_markdown_files = os.environ["TARGET_MARKDOWN_FILES"].split(' ')
+
 # Load the upcoming event from calendar_events.json
-upcoming_event = load_upcoming_event('.github/workflow-helpers/calendar_events.json')
+upcoming_event = load_upcoming_event(events_json_file)
 upcoming_event["event_start"] = upcoming_event["event_start"].replace(microsecond=0).isoformat()
 upcoming_event["event_location"] = clean_string(upcoming_event["event_location"])
 
 # Update the target_date in index.markdown and preview.markdown
 if upcoming_event:
     print(f"Updating target_date to {upcoming_event['event_start']} and event_location to {upcoming_event['event_location']}")
-    for filename in ['index.markdown', 'preview.markdown']:
+    for filename in target_markdown_files:
         update_target_date_and_location(filename, upcoming_event["event_start"], upcoming_event["event_location"])
         print(f"Updated {filename}")

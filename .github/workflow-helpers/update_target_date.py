@@ -29,6 +29,8 @@ def load_upcoming_event(file_path):
         future_events = [event for event in events if event["event_start"] > now]
         upcoming_event = None
 
+        print(f"Found {len(future_events)} future events out of {len(events)} total events")
+
         if len(future_events) > 0:
             upcoming_event = min(future_events, key=lambda event: event['event_start'])
         elif len(events) > 0:
@@ -40,9 +42,9 @@ def update_target_date_and_location(file_path, target_date, event_location):
     with open(file_path, 'r') as f:
         content = f.read()
 
-    # Update the target_date in index.markdown
+    # Update the target_date in file_path
     updated_content = re.sub(r"target_date: (\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:\d{2})", f"target_date: {target_date}", content)
-    # Update event_location line in index.markdown
+    # Update event_location line in file_path
     updated_content = re.sub(r"event_location: (.*)", f"event_location: {event_location}", updated_content)
     with open(file_path, 'w') as f:
         f.write(updated_content)
@@ -67,8 +69,9 @@ upcoming_event = load_upcoming_event('.github/workflow-helpers/calendar_events.j
 upcoming_event["event_start"] = upcoming_event["event_start"].replace(microsecond=0).isoformat()
 upcoming_event["event_location"] = clean_string(upcoming_event["event_location"])
 
-# Update the target_date in index.markdown
+# Update the target_date in index.markdown and preview.markdown
 if upcoming_event:
+    print(f"Updating target_date to {upcoming_event['event_start']} and event_location to {upcoming_event['event_location']}")
     for filename in ['index.markdown', 'preview.markdown']:
         update_target_date_and_location(filename, upcoming_event["event_start"], upcoming_event["event_location"])
-    # update_target_date_and_location('index.markdown', upcoming_event["event_start"], upcoming_event["event_location"])
+        print(f"Updated {filename}")

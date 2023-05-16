@@ -68,7 +68,7 @@ jobs:
         git push origin calendar-sync-update || exit 0
 
   update_target_date:
-    if: ${{ needs.sync.outputs.json_updated == '1' }}
+    if: ${{ needs.sync.outputs.json_updated == '1' || github.event_name == 'workflow_dispatch' }}
     needs: sync
     runs-on: ubuntu-latest
 

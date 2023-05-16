@@ -1,27 +1,35 @@
+{% capture description %}
+{% if page.event_description %}
+  {{ page.event_description | default:  }}
+{% elsif page.target_date and page.event_location %}
+  Happening on {{ page.target_date | date_to_string }} @ {{ page.event_location }}
+{% else %}
+  Spritwoch is a weekly event where we meet up to drink and have fun.
+{% endif %}
+{% endcapture %}
+{% capture title %}{{ page.title | default: "Spritwoch" }}{% endcapture %}
+{% capture image %}{{ page.image | default: "/assets/image/preview-image.png" }}{% endcapture %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="description" content="{{ description }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Open Graph meta tags -->
-  <meta property="og:title" content="Spritwoch">
   
+  <!-- Open Graph meta tags -->
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
   <meta property="og:image" content="https://spritwo.ch/assets/image/preview-image.png">
   <meta property="og:url" content="https://spritwo.ch">
   <meta property="og:type" content="website">
   <!-- Twitter Card meta tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Spritwoch">
-  
+  <meta name="twitter:title" content="{{ title }}">
+  <meta name="twitter:description" content="{{ description }}">
   <meta name="twitter:image" content="https://spritwo.ch/assets/image/preview-image.png">
-  {% if page.target_date and page.location %}
-  <meta property="og:description" content="Happening on {{ page.target_date | date_to_string }} @ {{ page.location }}">
-  <meta name="twitter:description" content="Happening on {{ page.target_date | date_to_string }} @ {{ page.location }}">
-  {% else %}
-    <meta property="og:description" content="{{ page.description | default: 'Spritwoch is a weekly event where we meet up to drink and have fun.' }}">
-    <meta name="twitter:description" content="{{ page.description | default: 'Spritwoch is a weekly event where we meet up to drink and have fun.' }}">
-  {% endif %}
-  <title>Spritwoch</title>
+
+  <title>{{ title }}</title>
   <link rel="stylesheet" href="{{ "/assets/css/styles.css" | relative_url }}">
 </head>
 <body>

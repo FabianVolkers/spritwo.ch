@@ -7,3 +7,4 @@ vendor
 venv
 service_account_key.json
 *.code-workspace
+.env

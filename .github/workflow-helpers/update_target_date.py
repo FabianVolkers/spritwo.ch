@@ -20,11 +20,13 @@ def load_upcoming_event(file_path):
                 event_start = event_start.astimezone(timezone)
 
             # Set the event location to the event location if it exists, otherwise set it to 'Campus'
-            event_location = event.get('location') or 'Campus'
+            # event_location = event.get('location') or 'Campus'
 
             events.append({
                 "event_start": event_start,
-                "event_location": event_location
+                "event_location": event.get('location', os.environ.get("DEFAULT_EVENT_LOCATION", "")),
+                "event_description": event.get('description', ""),
+                "event_title": event.get('summary', ""),
                 })
 
         future_events = [event for event in events if event["event_start"] > now]
@@ -39,7 +41,12 @@ def load_upcoming_event(file_path):
 
         return upcoming_event
 
-def update_target_date_and_location(file_path, target_date, event_location):
+def update_event_infos(file_path, event):
+    target_date = event.get("event_start")
+    event_location = event.get("event_location")
+    event_title = event.get("event_title")
+    event_description = event.get("event_description")
+
     with open(file_path, 'r') as f:
         content = f.read()
 
@@ -47,6 +54,11 @@ def update_target_date_and_location(file_path, target_date, event_location):
     updated_content = re.sub(r"target_date: (\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:\d{2})", f"target_date: {target_date}", content)
     # Update event_location line in file_path
     updated_content = re.sub(r"event_location: (.*)", f"event_location: {event_location}", updated_content)
+    # Update event_title line in file_path
+    updated_content = re.sub(r"event_title: (.*)", f"event_title: {event_title}", updated_content)
+    # Update event_description line in file_path
+    updated_content = re.sub(r"event_description: (.*)", f"event_description: {event_description}", updated_content)
+
     with open(file_path, 'w') as f:
         f.write(updated_content)
 
@@ -76,7 +88,8 @@ upcoming_event["event_location"] = clean_string(upcoming_event["event_location"]
 
 # Update the target_date in index.markdown and preview.markdown
 if upcoming_event:
+    print(upcoming_event)
     print(f"Updating target_date to {upcoming_event['event_start']} and event_location to {upcoming_event['event_location']}")
     for filename in target_markdown_files:
-        update_target_date_and_location(filename, upcoming_event["event_start"], upcoming_event["event_location"])
+        update_event_infos(filename, upcoming_event)
         print(f"Updated {filename}")

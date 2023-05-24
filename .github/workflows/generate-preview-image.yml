@@ -36,7 +36,7 @@ jobs:
 
   generate_png:
     needs: check_if_updated
-    if: ${{ needs.check_if_updated.outputs.skip_generate == '0' }}
+    if: ${{ needs.check_if_updated.outputs.skip_generate == '0' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository

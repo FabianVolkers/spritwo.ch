@@ -45,24 +45,20 @@ jobs:
         token: ${{ secrets.GH_TOKEN }}
 
     - name: Set up Google Chrome
-      if: ${{ needs.check_if_updated.outputs.skip_generate == '0' }}
       run: |
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
 
     - name: Set up Node.js
-      if: ${{ needs.check_if_updated.outputs.skip_generate == '0' }}
       uses: actions/setup-node@v2
       with:
         node-version: 14
 
     - name: Install Puppeteer
-      if: ${{ needs.check_if_updated.outputs.skip_generate == '0' }}
       run: |
         npm install puppeteer
 
     - name: Generate PNG from URL
-      if: ${{ needs.check_if_updated.outputs.skip_generate == '0' }}
       env:
         URL: 'https://spritwo.ch/preview' #${{ secrets.SITE_URL }}
         CHROME_EXECUTABLE_PATH: 'google-chrome-stable'
@@ -70,7 +66,6 @@ jobs:
         node .github/workflow-helpers/generate_png.js
 
     - name: Create and checkout new branch
-      if: ${{ needs.check_if_updated.outputs.skip_generate == '0' }}
       run: |
         git checkout -b preview-image-update
 

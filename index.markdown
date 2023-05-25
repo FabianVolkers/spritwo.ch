@@ -3,8 +3,8 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: index
-target_date: 2023-05-26T18:30:00+02:00
-event_location: 
-event_title: sprit
+target_date: 2023-04-05T18:00:00+02:00
+event_location: Heaven
+event_title: CASINO NIGHT x spritwoch
 event_description: 
 ---

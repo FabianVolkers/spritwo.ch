@@ -14,6 +14,14 @@ def load_existing_events(file_path):
     except FileNotFoundError:
         return {}
 
+def clean_event_description(event):
+    event_description = event.get('description')
+
+    if not event_description:
+        return
+    
+    soup = BeautifulSoup(event_description, 'html.parser')
+    return soup.get_text()
 
 def save_updated_events(file_path, existing_events, new_events):
     updated_events = {}
@@ -27,6 +35,10 @@ def save_updated_events(file_path, existing_events, new_events):
             'originalStartTime']:
             # Remove email addresses from event
             new_event.pop(key, None)
+
+        # Clean up HTML in event description
+        new_event['description'] = clean_event_description(new_event)
+
         updated_events[event_id] = new_event
 
     # Retain past events that are not in the new events list and are outside the requested time range
@@ -41,12 +53,8 @@ def save_updated_events(file_path, existing_events, new_events):
             event_start = event_start.astimezone(timezone)
 
         # Clean up HTML in event description
-        event_description = event.get('description')
-        if event_description:
-            soup = BeautifulSoup(event_description, 'html.parser')
-            event_description = soup.get_text()
-            event['description'] = event_description
-            
+        event['description'] = clean_event_description(event)
+
         if event_id not in updated_events and event_start < now:
             updated_events[event_id] = event
 

@@ -10,6 +10,15 @@ Install ruby and jekyll.
 bundle exec jekyll serve -l # for live reloading
 ```
 
+
+### Test GitHub Actions
+
+```zsh
+set -a
+source .github/workflow-helpers/.env                    
+set +a 
+```
+
 ## Automations
 
 - google calendar sync

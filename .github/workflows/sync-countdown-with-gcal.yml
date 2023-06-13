@@ -119,7 +119,7 @@ jobs:
         git push origin $BRANCH_NAME
 
     - name: Create pull request
-      if: ${{ steps.check_target_date.outputs.target_date_updated == '1' }}
+      if: ${{ steps.check_target_date.outputs.target_date_updated == '1' || needs.sync.outputs.json_updated == '1' }}
       id: create_pr
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}

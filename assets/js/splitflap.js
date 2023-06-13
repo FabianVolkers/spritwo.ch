@@ -83,9 +83,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // TODO: extract method setPreviewRows
     if(window.location.pathname === "/preview") {
       // targetDate to string with fromat DD MMM YYYY
-      const dateStr = targetDate.toLocaleDateString([], { day: '2-digit', month: 'short', year: 'numeric' });
+      const dateStr = targetDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+      console.log("Date string: " + dateStr)
       // targetDate to string with fromat HH:MM
-      const timeString = targetDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const timeString = targetDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+      console.log("Time string: " + timeString)
       rows = setRows(dateStr, timeString, eventLocation);
     } else {
       console.log("Multiple rows not yet supported for this page");

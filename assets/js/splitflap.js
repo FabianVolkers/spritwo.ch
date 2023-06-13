@@ -139,6 +139,7 @@ for (let row = 0; row < Math.min(NUMBER_OF_ROWS, rows.length); row++) {
         })
       );
     }
+    console.log(`Added row with string ${string}`)
 }
 
   if(NUMBER_OF_FLAPS !== 10) {

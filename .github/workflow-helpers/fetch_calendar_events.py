@@ -51,7 +51,11 @@ def save_updated_events(file_path, existing_events, new_events):
         # Store location name and address separately
         location = new_event.get('location')
         if location:
-            new_event['location_name'], new_event['location_address'] = separate_location(location)
+            if ',' not in location:
+                new_event['location_name'] = location
+                new_event['location_address'] = 'Lohmühlenstraße 65, 12435 Berlin, Germany'
+            else:
+                new_event['location_name'], new_event['location_address'] = separate_location(location)
 
         updated_events[event_id] = new_event
         print(f"Adding new event {event_id} {new_event['summary']}")

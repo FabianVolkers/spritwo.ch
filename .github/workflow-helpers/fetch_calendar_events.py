@@ -38,6 +38,7 @@ def save_updated_events(file_path, existing_events, new_events):
             new_event.pop(key, None)
 
         # Clean up HTML in event description
+        new_event['description_html'] = new_event.get('description', '')
         new_event['description'] = clean_event_description(new_event)
 
         updated_events[event_id] = new_event
@@ -55,6 +56,7 @@ def save_updated_events(file_path, existing_events, new_events):
             event_start = event_start.astimezone(timezone)
 
         # Clean up HTML in event description
+        event['description_html'] = event.get('description', '')
         event['description'] = clean_event_description(event)
 
         if event_id not in updated_events and event_start < now:

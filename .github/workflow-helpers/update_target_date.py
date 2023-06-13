@@ -24,7 +24,7 @@ def load_upcoming_event(file_path):
 
             events.append({
                 "event_start": event_start,
-                "event_location": event.get('location', os.environ.get("DEFAULT_EVENT_LOCATION", "")),
+                "event_location": event.get('location_name', os.environ.get("DEFAULT_EVENT_LOCATION", "")),
                 "event_description": event.get('description', ""),
                 "event_title": event.get('summary', ""),
                 })
@@ -62,7 +62,7 @@ def update_event_infos(file_path, event):
     with open(file_path, 'w') as f:
         f.write(updated_content)
 
-def clean_string(s):
+def clean_location_string(s):
     # Remove the leading '--5-' part
     cleaned = re.sub(r'^--\d-', '', s)
 
@@ -84,7 +84,7 @@ target_markdown_files = os.environ["TARGET_MARKDOWN_FILES"].split(' ')
 # Load the upcoming event from calendar_events.json
 upcoming_event = load_upcoming_event(events_json_file)
 upcoming_event["event_start"] = upcoming_event["event_start"].replace(microsecond=0).isoformat()
-upcoming_event["event_location"] = clean_string(upcoming_event["event_location"])
+upcoming_event["event_location"] = clean_location_string(upcoming_event["event_location"])
 
 # Update the target_date in index.markdown and preview.markdown
 if upcoming_event:

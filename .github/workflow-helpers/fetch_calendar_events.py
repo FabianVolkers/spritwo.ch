@@ -15,13 +15,12 @@ def load_existing_events(file_path):
     except FileNotFoundError:
         return {}
 
-def clean_event_description(event):
-    event_description = event.get('description')
+def clean_event_description(description):
 
-    if not event_description:
+    if not description:
         return
     
-    soup = BeautifulSoup(event_description, 'html.parser')
+    soup = BeautifulSoup(description, 'html.parser')
     return soup.get_text()
 
 def separate_location(location):
@@ -44,8 +43,10 @@ def save_updated_events(file_path, existing_events, new_events):
             new_event.pop(key, None)
 
         # Clean up HTML in event description
-        new_event['description_html'] = new_event.get('description', '')
-        new_event['description'] = clean_event_description(new_event)
+        description = new_event.get('description')
+        if description:
+            new_event['description_html'] = description
+            new_event['description'] = clean_event_description(description)
 
         # Store location name and address separately
         location = new_event.get('location')
@@ -93,10 +94,14 @@ existing_events = load_existing_events(file_path)
 print(f"Found {len(existing_events)} existing events")
 
 # Get events from the Google Calendar
-now = datetime.utcnow().isoformat() + 'Z'
-print(f'Getting the upcoming 50 events from {now}')
+start_date_str = os.environ.get("START_DATE")
+if start_date_str:
+    start_date = datetime.fromisoformat(start_date_str).isoformat() + 'Z'
+else:
+    start_date = datetime.utcnow().isoformat() + 'Z'
+print(f'Getting the upcoming 50 events from {start_date}')
 events_results = calendar_service.events().list(calendarId=calendar_id,
-                                                timeMin=now,
+                                                timeMin=start_date,
                                                 maxResults=50,
                                                 singleEvents=True,
                                                 orderBy='startTime').execute()

@@ -24,6 +24,12 @@ def clean_event_description(event):
     soup = BeautifulSoup(event_description, 'html.parser')
     return soup.get_text()
 
+def separate_location(location):
+    location = location.split(',')
+    location_name = location[0].strip()
+    location_address = ','.join(location[1:]).strip()
+    return location_name, location_address
+
 def save_updated_events(file_path, existing_events, new_events):
     updated_events = {}
     for new_event in new_events:
@@ -41,6 +47,11 @@ def save_updated_events(file_path, existing_events, new_events):
         new_event['description_html'] = new_event.get('description', '')
         new_event['description'] = clean_event_description(new_event)
 
+        # Store location name and address separately
+        location = new_event.get('location')
+        if location:
+            new_event['location_name'], new_event['location_address'] = separate_location(location)
+
         updated_events[event_id] = new_event
         print(f"Adding new event {event_id} {new_event['summary']}")
 
@@ -55,9 +66,9 @@ def save_updated_events(file_path, existing_events, new_events):
             timezone = pytz.timezone(event_timezone)
             event_start = event_start.astimezone(timezone)
 
-        # Clean up HTML in event description
-        event['description_html'] = event.get('description', '')
-        event['description'] = clean_event_description(event)
+        # # Clean up HTML in event description
+        # event['description_html'] = event.get('description', '')
+        # event['description'] = clean_event_description(event)
 
         if event_id not in updated_events and event_start < now:
             updated_events[event_id] = event

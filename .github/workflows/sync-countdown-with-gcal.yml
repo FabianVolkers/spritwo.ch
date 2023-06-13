@@ -10,7 +10,7 @@ on:
 env:
   EVENTS_JSON_FILE: .github/workflow-helpers/calendar_events.json
   TARGET_MARKDOWN_FILES: "index.markdown preview.markdown"
-  BRANCH_NAME: calendar-sync-update-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT
+  BRANCH_NAME: calendar-sync-update-${{ github.RUN_NUMBER }}-${{ github.RUN_ATTEMPT }}
 
 jobs:
   sync:
@@ -77,7 +77,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       with:
-        ref: $BRANCH_NAME
+        ref: ${{ env.BRANCH_NAME }}
         fetch-depth: 0
         token: ${{ secrets.GH_TOKEN }}
 

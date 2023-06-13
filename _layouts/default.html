@@ -7,7 +7,7 @@
   Spritwoch is a weekly event where we meet up to drink and have fun.
 {% endif %}
 {% endcapture %}
-{% capture title %}{{ page.title | default: "Spritwoch" }}{% endcapture %}
+{% capture title %}{{ page.event_title | default: "Spritwoch" }}{% endcapture %}
 {% capture image %}{{ page.image | default: "/assets/image/preview-image.png" }}{% endcapture %}
 
 <!DOCTYPE html>

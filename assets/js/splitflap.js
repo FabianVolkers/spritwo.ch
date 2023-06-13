@@ -138,6 +138,7 @@ for (let row = 0; row < Math.min(NUMBER_OF_ROWS, rows.length); row++) {
           id: `flap-${row}-${col}`,
         })
       );
+      console.log(`Added row with string ${string}`)
     }
 }
 

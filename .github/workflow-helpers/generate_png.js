@@ -8,6 +8,10 @@ const puppeteer = require('puppeteer');
   console.log('Browser launched')
   console.log(`Browser version: ${await browser.version()}`)
   const page = await browser.newPage();
+
+  await page.evaluate(() => {
+    console.log(`Language: ${navigator.language}`);
+  });
   
   // Set screen size
   const width = 1000;

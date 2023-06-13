@@ -4,6 +4,7 @@ import pytz
 from datetime import datetime
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
+from bs4 import BeautifulSoup
 
 
 def load_existing_events(file_path):
@@ -38,6 +39,13 @@ def save_updated_events(file_path, existing_events, new_events):
         if event_timezone:
             timezone = pytz.timezone(event_timezone)
             event_start = event_start.astimezone(timezone)
+
+        # Clean up HTML in event description
+        event_description = event.get('description')
+        if event_description:
+            soup = BeautifulSoup(event_description, 'html.parser')
+            event_description = soup.get_text()
+            event['description'] = event_description
             
         if event_id not in updated_events and event_start < now:
             updated_events[event_id] = event

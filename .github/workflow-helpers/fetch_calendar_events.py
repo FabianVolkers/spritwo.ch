@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 def load_existing_events(file_path):
     try:
         with open(file_path, 'r') as f:
+            print(f"Loading existing events from {file_path}")
             return json.load(f)
     except FileNotFoundError:
         return {}
@@ -40,6 +41,7 @@ def save_updated_events(file_path, existing_events, new_events):
         new_event['description'] = clean_event_description(new_event)
 
         updated_events[event_id] = new_event
+        print(f"Adding new event {event_id} {new_event['summary']}")
 
     # Retain past events that are not in the new events list and are outside the requested time range
     now = datetime.utcnow()
@@ -57,6 +59,7 @@ def save_updated_events(file_path, existing_events, new_events):
 
         if event_id not in updated_events and event_start < now:
             updated_events[event_id] = event
+            print(f"Retaining past event {event_id} {event['summary']}")
 
     with open(file_path, 'w') as f:
         json.dump(updated_events, f, indent=2)
@@ -74,9 +77,11 @@ calendar_service = build('calendar', 'v3', credentials=creds)
 # Load existing events from the JSON file
 file_path = os.environ["EVENTS_JSON_FILE"]
 existing_events = load_existing_events(file_path)
+print(f"Found {len(existing_events)} existing events")
 
 # Get events from the Google Calendar
 now = datetime.utcnow().isoformat() + 'Z'
+print(f'Getting the upcoming 50 events from {now}')
 events_results = calendar_service.events().list(calendarId=calendar_id,
                                                 timeMin=now,
                                                 maxResults=50,
@@ -85,4 +90,6 @@ events_results = calendar_service.events().list(calendarId=calendar_id,
 
 # Update existing events with new or changed events
 new_events = events_results.get('items', [])
+print(f"Found {len(new_events)} new events")
+
 save_updated_events(file_path, existing_events, new_events)

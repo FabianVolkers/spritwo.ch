@@ -10,6 +10,7 @@ on:
 env:
   EVENTS_JSON_FILE: .github/workflow-helpers/calendar_events.json
   TARGET_MARKDOWN_FILES: "index.markdown preview.markdown"
+  BRANCH_NAME: calendar-sync-update-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT
 
 jobs:
   sync:
@@ -26,7 +27,7 @@ jobs:
 
     - name: Create and checkout new branch
       run: |
-        git checkout -b calendar-sync-update
+        git checkout -b $BRANCH_NAME
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -65,7 +66,7 @@ jobs:
         git config user.email "FabianVolkers@users.noreply.github.com"
         git add $EVENTS_JSON_FILE
         git commit -m "Update calendar_events.json with latest events"
-        git push origin calendar-sync-update || exit 0
+        git push origin $BRANCH_NAME || exit 0
 
   update_target_date:
     if: ${{ needs.sync.outputs.json_updated == '1' || github.event_name == 'workflow_dispatch' }}
@@ -76,7 +77,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       with:
-        ref: calendar-sync-update-${{ github.run_number }}-${{ github.run_attempt }}
+        ref: $BRANCH_NAME
         fetch-depth: 0
         token: ${{ secrets.GH_TOKEN }}
 
@@ -115,7 +116,7 @@ jobs:
         git config user.email "FabianVolkers@users.noreply.github.com"
         git add $TARGET_MARKDOWN_FILES
         git commit -m "Update target_date in $TARGET_MARKDOWN_FILES" || exit 0
-        git push origin calendar-sync-update-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT || exit 0
+        git push origin $BRANCH_NAME
 
     - name: Create pull request
       if: ${{ steps.check_target_date.outputs.target_date_updated == '1' }}
@@ -123,7 +124,7 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
-        response=$(curl -s -w "%{http_code}" -X POST -H "Accept: application/vnd.github+json" -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/${{ github.repository }}/pulls" -d '{"title":"Update target_date in index.markdown","head":"calendar-sync-update-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT","base":"main","maintainer_can_modify": true}')
+        response=$(curl -s -w "%{http_code}" -X POST -H "Accept: application/vnd.github+json" -H "Authorization: token $GH_TOKEN" "https://api.github.com/repos/${{ github.repository }}/pulls" -d '{"title":"Update target_date in index.markdown","head":"$BRANCH_NAME","base":"main","maintainer_can_modify": true}')
         status_code=$(echo "$response" | tail -n1)
         pr_data=$(echo "$response" | head -n-1)
         if [ $status_code -ne 201 ]; then
@@ -148,8 +149,8 @@ jobs:
         fi
         echo "merge_status=$status_code" >> "$GITHUB_OUTPUT"
 
-    - name: Delete calendar-sync-update branch
+    - name: Delete $BRANCH_NAME branch
       if: ${{ steps.merge_pr.outputs.merge_status == 200 }}
       run: |
-        git push origin --delete calendar-sync-update-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT
+        git push origin --delete $BRANCH_NAME
 

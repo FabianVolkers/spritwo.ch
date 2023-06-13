@@ -13,6 +13,8 @@ bundle exec jekyll serve -l # for live reloading
 
 ### Test GitHub Actions
 
+Copy `.env.example` to `.env` and change the values to work with your setup. Then load the vars into your environment.
+
 ```zsh
 set -a
 source .github/workflow-helpers/.env                    

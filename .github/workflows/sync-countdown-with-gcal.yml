@@ -149,7 +149,7 @@ jobs:
         fi
         echo "merge_status=$status_code" >> "$GITHUB_OUTPUT"
 
-    - name: Delete $BRANCH_NAME branch
+    - name: Delete ${{ env.BRANCH_NAME}} branch
       if: ${{ steps.merge_pr.outputs.merge_status == 200 }}
       run: |
         git push origin --delete $BRANCH_NAME

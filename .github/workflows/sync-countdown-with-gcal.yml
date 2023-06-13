@@ -135,7 +135,7 @@ jobs:
         echo "pr_id=$pr_id" >> "$GITHUB_OUTPUT"
 
     - name: Merge pull request
-      if: ${{ steps.create_pr.outputs.pr_id != null }}}
+      if: ${{ steps.create_pr.outputs.pr_id != null }}
       id: merge_pr
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}

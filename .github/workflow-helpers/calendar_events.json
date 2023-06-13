@@ -1,4 +1,21 @@
 {
+  "0m8091pg2iiosurvtejsqsmj4f": {
+    "id": "0m8091pg2iiosurvtejsqsmj4f",
+    "htmlLink": "https://www.google.com/calendar/event?eid=MG04MDkxcGcyaWlvc3VydnRlanNxc21qNGYgY183ODc5YjlkMDk5YmNiODQzY2Q5N2ViMDVlYTlhNThmNGNmOWQyYjY0Y2JkY2M3NTA1YTEzMDYzODZlOTBhYjliQGc",
+    "created": "2023-06-12T16:23:23.000Z",
+    "updated": "2023-06-13T08:13:42.318Z",
+    "summary": "\ud83c\udf7b SPRITWOCH \u26bd\ufe0f",
+    "description": "Same procedure as every year, James \ud83c\udf7b\u26bd\ufe0f\ud83c\udfb6 \u00a0Flunky/Bierball, Music & maybe Karaoke after \ud83c\udfa4Donate to the beer tap here \ud83c\udf7b",
+    "location": "Schlesischer Busch, Am Flutgraben 1, 12435 Berlin, Germany",
+    "start": {
+      "dateTime": "2023-06-14T18:00:00+02:00",
+      "timeZone": "Europe/Berlin"
+    },
+    "end": {
+      "dateTime": "2023-06-14T23:00:00+02:00",
+      "timeZone": "Europe/Berlin"
+    }
+  },
   "0o756g95skqibk1ajrnerij3ki": {
     "id": "0o756g95skqibk1ajrnerij3ki",
     "htmlLink": "https://www.google.com/calendar/event?eid=MG83NTZnOTVza3FpYmsxYWpybmVyaWoza2kgY183ODc5YjlkMDk5YmNiODQzY2Q5N2ViMDVlYTlhNThmNGNmOWQyYjY0Y2JkY2M3NTA1YTEzMDYzODZlOTBhYjliQGc",
@@ -12,7 +29,8 @@
     "end": {
       "dateTime": "2022-03-23T18:00:00+01:00",
       "timeZone": "Europe/Berlin"
-    }
+    },
+    "description": null
   },
   "79pq0k1f3vt28f28cu409pca7p_20220330T150000Z": {
     "id": "79pq0k1f3vt28f28cu409pca7p_20220330T150000Z",
@@ -27,7 +45,8 @@
     "end": {
       "dateTime": "2022-03-30T18:00:00+02:00",
       "timeZone": "Europe/Berlin"
-    }
+    },
+    "description": null
   },
   "0ipuufnth7iib27r5o7d5bip1v_20220330T170000Z": {
     "id": "0ipuufnth7iib27r5o7d5bip1v_20220330T170000Z",
@@ -42,7 +61,8 @@
     "end": {
       "dateTime": "2022-03-30T21:00:00+02:00",
       "timeZone": "Europe/Berlin"
-    }
+    },
+    "description": null
   },
   "gol7dcci2qns4mq6odglel4m0q_20220413T153000Z": {
     "id": "gol7dcci2qns4mq6odglel4m0q_20220413T153000Z",
@@ -57,7 +77,8 @@
     "end": {
       "dateTime": "2022-04-13T19:00:00+02:00",
       "timeZone": "Europe/Berlin"
-    }
+    },
+    "description": null
   },
   "1hn7sopgu3urm5tthkhh02emvs_20220413T170000Z": {
     "id": "1hn7sopgu3urm5tthkhh02emvs_20220413T170000Z",
@@ -72,7 +93,8 @@
     "end": {
       "dateTime": "2022-04-14T00:00:00+02:00",
       "timeZone": "Europe/Berlin"
-    }
+    },
+    "description": null
   },
   "u9rs11v7fa0ofqbjtq9rk85pqi_20220504T153000Z": {
     "id": "u9rs11v7fa0ofqbjtq9rk85pqi_20220504T153000Z",
@@ -87,7 +109,8 @@
     "end": {
       "dateTime": "2022-05-04T23:30:00+02:00",
       "timeZone": "Europe/Berlin"
-    }
+    },
+    "description": null
   },
   "34g0pi2204eoekb3dvav0trf8e": {
     "id": "34g0pi2204eoekb3dvav0trf8e",
@@ -118,7 +141,8 @@
     "end": {
       "dateTime": "2022-05-25T23:30:00+02:00",
       "timeZone": "Europe/Berlin"
-    }
+    },
+    "description": null
   },
   "il0rv966dp127j84pon6vh7vu0_20220615T153000Z": {
     "id": "il0rv966dp127j84pon6vh7vu0_20220615T153000Z",
@@ -133,7 +157,8 @@
     "end": {
       "dateTime": "2022-06-15T23:30:00+02:00",
       "timeZone": "Europe/Berlin"
-    }
+    },
+    "description": null
   },
   "il0rv966dp127j84pon6vh7vu0_20220629T153000Z": {
     "id": "il0rv966dp127j84pon6vh7vu0_20220629T153000Z",
@@ -148,7 +173,8 @@
     "end": {
       "dateTime": "2022-06-29T23:30:00+02:00",
       "timeZone": "Europe/Berlin"
-    }
+    },
+    "description": null
   },
   "il0rv966dp127j84pon6vh7vu0_20220713T153000Z": {
     "id": "il0rv966dp127j84pon6vh7vu0_20220713T153000Z",
@@ -163,7 +189,8 @@
     "end": {
       "dateTime": "2022-07-13T23:30:00+02:00",
       "timeZone": "Europe/Berlin"
-    }
+    },
+    "description": null
   },
   "mhle2udnflgmouh8te7u4doetc": {
     "id": "mhle2udnflgmouh8te7u4doetc",
@@ -222,7 +249,8 @@
         "iconLink": "https://drive-thirdparty.googleusercontent.com/32/type/image/png",
         "fileId": "17UtLVEzeWjYhgpu3U4uBSc0y8tXwdOkY"
       }
-    ]
+    ],
+    "description": null
   },
   "685e6vd21lgd3rnj3k8mok9hij": {
     "id": "685e6vd21lgd3rnj3k8mok9hij",
@@ -238,7 +266,8 @@
     "end": {
       "dateTime": "2023-02-08T20:00:00+01:00",
       "timeZone": "Europe/Berlin"
-    }
+    },
+    "description": null
   },
   "4d6didhoa3t3bd38h1avurh938": {
     "id": "4d6didhoa3t3bd38h1avurh938",
@@ -254,6 +283,7 @@
     "end": {
       "dateTime": "2023-04-05T23:45:00+02:00",
       "timeZone": "Europe/Berlin"
-    }
+    },
+    "description": null
   }
 }

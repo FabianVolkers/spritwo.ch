@@ -3,8 +3,8 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: index
-target_date: 2023-06-14T19:30:00+02:00
-event_location: Schlesischer Busch
-event_title: 🍻 SPRITWOCH ⚽️
-event_description: Same procedure as every year, James 🍻⚽️🎶  Flunky/Bierball, Music & maybe Karaoke after 🎤Donate to the beer tap here 🍻
+target_date: 2023-08-23T18:00:00+02:00
+event_location: Matrix
+event_title: 🛢️ SPRITWOCH x OBD23 🎉 | Bierball⚽️ & Karaoke🎤
+event_description: Come join us and get to know the 7th generation 🎉🛢️⚽️ 6-8 - Bierball @ Outside🎤 8-10 - Karaoke @ Matrix
 ---

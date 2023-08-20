@@ -5,6 +5,9 @@
 layout: index
 target_date: 2023-08-23T18:00:00+02:00
 event_location: Matrix
-event_title: 🛢️ SPRITWOCH x OBD23 🎉 | Bierball⚽️ & Karaoke🎤
-event_description: Come join us and get to know the 7th generation 🎉🛢️⚽️ 6-8 - Bierball @ Outside🎤 8-10 - Karaoke @ Matrix
+event_title: 🛢️ SPRITWOCH x OBD23 🎉 | Bierball⚽️ 
+event_description: Come join us and get to know the 7th generation 🎉🛢️
+
+⚽️ 6-8 - Bierball @ Outside
+Karaoke won’t be possible because of Room unavailability 
 ---

@@ -10,4 +10,7 @@ event_description: Come join us and get to know the 7th generation 🎉🛢️
 
 ⚽️ 6-8 - Bierball @ Outside
 Karaoke won’t be possible because of Room unavailability 
+
+⚽️ 6-8 - Bierball @ Outside
+Karaoke won’t be possible because of Room unavailability 
 ---

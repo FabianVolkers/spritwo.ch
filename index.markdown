@@ -16,4 +16,7 @@ Karaoke won’t be possible because of Room unavailability
 
 ⚽️ 6-8 - Bierball @ Outside
 Karaoke won’t be possible because of Room unavailability 
+
+⚽️ 6-8 - Bierball @ Outside
+Karaoke won’t be possible because of Room unavailability 
 ---

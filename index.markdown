@@ -11,6 +11,9 @@ event_description: Come join us and get to know the 7th generation 🎉🛢️
 ⚽️ 6-9 - Bierball @ Outside
 🎤9-12 - Karaoke is back on the menu!
 
+⚽️ 6-9 - Bierball @ Outside
+🎤9-12 - Karaoke is back on the menu!
+
 ⚽️ 6-8 - Bierball @ Outside
 Karaoke won’t be possible because of Room unavailability 
 

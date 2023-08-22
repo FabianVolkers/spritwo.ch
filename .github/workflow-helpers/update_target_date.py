@@ -58,7 +58,8 @@ def update_event_infos(file_path, event):
     updated_content = re.sub(r"event_title: (.*)", f"event_title: {event_title}", updated_content)
     # Update event_description line in file_path
     event_description_pattern = re.escape("event_description: |") + r'.*?' + re.escape("---")
-    updated_content = re.sub(event_description_pattern, f"event_description: |\n {event_description} \n---", updated_content, flags=re.DOTALL)
+    event_description = '\n'.join(['  ' + line for line in event_description.split('\n')])
+    updated_content = re.sub(event_description_pattern, f"event_description: |\n{event_description}\n---", updated_content, flags=re.DOTALL)
 
     with open(file_path, 'w') as f:
         f.write(updated_content)

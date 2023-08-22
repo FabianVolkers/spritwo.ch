@@ -57,7 +57,7 @@ def update_event_infos(file_path, event):
     # Update event_title line in file_path
     updated_content = re.sub(r"event_title: (.*)", f"event_title: {event_title}", updated_content)
     # Update event_description line in file_path
-    updated_content = re.sub(r"event_description:| (.*)", f"event_description:| {event_description}", updated_content)
+    updated_content = re.sub(r"event_description: > (.*)", f"event_description: > {event_description}", updated_content)
 
     with open(file_path, 'w') as f:
         f.write(updated_content)

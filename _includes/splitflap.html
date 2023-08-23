@@ -11,5 +11,17 @@
     const numberOfRows = eval('{{ include.number_of_rows | default: 1 }}');
     const eventLocation = '{{ include.event_location | default: "Campus" }}';
 
+    async function requestWakeLock() {
+        try {
+            const wakeLock = await navigator.wakeLock.request('screen');
+            // You now have a wake lock active.
+        } catch (err) {
+            // Handle errors
+            console.error('Error requesting wake lock:', err);
+        }
+    }
+
+        requestWakeLock(); // Call this function to request the wake lock.
+
 </script>
 <script src="{{ "/assets/js/splitflap.js" | relative_url }}"></script>

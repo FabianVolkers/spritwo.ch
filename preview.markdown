@@ -1,6 +1,6 @@
 ---
 layout: preview
-target_date: 2023-08-23T18:00:00+02:00
-event_location: Schlesischer Busch
-event_title: 🛢️ SPRITWOCH x OBD23 🎉 | Bierball⚽️ & Karaoke 🎤
+target_date: 2023-09-28T18:00:00+02:00
+event_location: Matrix
+event_title: Spritthursday 🛢️ x Community Day
 ---
